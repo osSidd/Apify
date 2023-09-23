@@ -20,7 +20,7 @@ class HomePage extends Component{
     componentDidUpdate(){
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.renderItem('coord', 'lat')}&lon=${this.renderItem('coord', 'lon')}&exclude=minutely&appid=${import.meta.env.VITE_API_KEY}`,{mode:'cors'})
         .then(res => res.json())
-        .then(data => {console.log(data)})        
+        .then(data => {})        
     }
 
     render(){
