@@ -2,23 +2,25 @@ import { Component } from "react";
 import './homepage.css'
 
 import CurrentWeather from "../../components/current/current";
-
+import obj from '../../data'
 class HomePage extends Component{
 
     constructor(){
         super()
-        this.state = {
-            coord: {lat: 0, lon: 0},
-            forecast:{},
-        }
-        
+        // this.state = {
+        //     coord: {lat: 0, lon: 0},
+        //     forecast:{},
+        // }
+
+        this.state = obj
         this.getCoord = this.getCoord.bind(this)
         this.getForecast = this.getForecast.bind(this)
     }
 
     componentDidMount(){
-        this.getCoord('london')  
-        this.getForecast()      
+       // this.getCoord('london')  
+        //this.getForecast()     
+        console.log(obj) 
     }
 
     componentDidUpdate(){
@@ -56,7 +58,7 @@ class HomePage extends Component{
 
         return(
             <div>
-                {this.state.forecast.current ? <CurrentWeather current = {this.state.forecast.current} /> : <div>Fetching data...</div>}
+                {/* {this.state.forecast.current ? <CurrentWeather current = {this.state.forecast.current} /> : <div>Fetching data...</div>} */}
             </div>
         )
     }

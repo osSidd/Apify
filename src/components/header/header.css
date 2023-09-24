@@ -1,9 +1,24 @@
+.header{
+    padding: 35px 125px;
+    background-color: antiquewhite;
+    background-image:linear-gradient(90deg, rgba(34,33, 22, 0.25), rgba(221,31,22, 0.25)),  url('../../assets/banner.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color:#fff;
+}
+
 .logo-name{
     display: flex;
     align-items: center;
-    justify-content: center;
+    font-size:2rem;
 }
 
 .logo{
     margin-right: 1rem;
+}
+
+.sub-heading{
+    width: 45%;
+    line-height: 2rem;
 }

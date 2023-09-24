@@ -7,7 +7,7 @@ class CurrentWeather extends Component{
         console.log(d)
         return(
             <div>
-                {d.wind_speed}
+                {d.wind_speed} m/s
                 Humidity: {d.humidity}%
                 UV: {d.uvi}
                 Visibility: {d.visibility/1000} km
