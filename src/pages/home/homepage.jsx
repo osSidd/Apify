@@ -58,7 +58,7 @@ class HomePage extends Component{
 
         return(
             <div>
-                {/* {this.state.forecast.current ? <CurrentWeather current = {this.state.forecast.current} /> : <div>Fetching data...</div>} */}
+                {this.state.forecast.current ? <CurrentWeather current = {this.state.forecast.current} /> : <div>Fetching data...</div>}
             </div>
         )
     }
