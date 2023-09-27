@@ -69,7 +69,7 @@ class HomePage extends Component{
                             <CurrentWeather current = {this.state.forecast.current} />
                             <HeatMap/>
                             <Hourly data={obj.forecast.hourly}/>
-                            <Daily/>
+                            <Daily data={obj.forecast.daily}/>
                           </div> 
                         : <div>Fetching data...</div>
                 }
