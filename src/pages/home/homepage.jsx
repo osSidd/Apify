@@ -2,7 +2,12 @@ import { Component } from "react";
 import './homepage.css'
 
 import CurrentWeather from "../../components/current/current";
+import HeatMap from '../../components/heatMap/heatmap'
+
 import obj from '../../data'
+import Hourly from "../../components/hourly/hourly";
+import Daily from '../../components/daily/daily'
+
 class HomePage extends Component{
 
     constructor(){
@@ -58,7 +63,16 @@ class HomePage extends Component{
 
         return(
             <div>
-                {this.state.forecast.current ? <CurrentWeather current = {this.state.forecast.current} /> : <div>Fetching data...</div>}
+                {
+                    this.state.forecast.current 
+                        ? <div className="data-components">
+                            <CurrentWeather current = {this.state.forecast.current} />
+                            <HeatMap/>
+                            <Hourly data={obj.forecast.hourly}/>
+                            <Daily/>
+                          </div> 
+                        : <div>Fetching data...</div>
+                }
             </div>
         )
     }
