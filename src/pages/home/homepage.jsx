@@ -7,6 +7,8 @@ import HeatMap from '../../components/heatMap/heatmap'
 import obj from '../../data'
 import Hourly from "../../components/hourly/hourly";
 import Daily from '../../components/daily/daily'
+import Footer from "../../components/footer/footer";
+import Tools from "../../components/tools/tools";
 
 class HomePage extends Component{
 
@@ -73,6 +75,8 @@ class HomePage extends Component{
                           </div> 
                         : <div>Fetching data...</div>
                 }
+                <Tools/>
+                <Footer/>
             </div>
         )
     }

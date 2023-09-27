@@ -1,0 +1,21 @@
+.tools{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 75px auto;
+    padding:25px 135px;
+    background-color: #eee;
+}
+
+.tool-icon{
+    width: 100px;
+    margin:0 25px;
+}
+
+.d3{
+    width:225px;
+}
+
+.open-weather{
+    width:150px;
+}
