@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 export default function Chart({data}){
 
     const DataArr = data.map(item => [data.indexOf(item), (parseInt(item.humidity))])
-
+    console.log(DataArr)
     const svgRef = useRef()
 
    useEffect(() => {
@@ -51,13 +51,25 @@ function drawChart(svgRef, data){
         .attr('transform', 'translate(25,0)')
         .call(yAxis)
 
-    svg.selectAll('circle')
-        .data(data)
-        .enter()
-        .append('circle')
-        .attr('r', 2)
-        .attr('cx', d => xScale(d[0]))
-        .attr('cy', d => yScale(parseInt(d[1])))
-        .attr('fill', 'black')
+    // svg.selectAll('circle')
+    //     .data(data)
+    //     .enter()
+    //     .append('circle')
+    //     .attr('r', 2)
+    //     .attr('cx', d => xScale(d[0]))
+    //     .attr('cy', d => yScale(parseInt(d[1])))
+    //     .attr('fill', 'black')
+
+    let line = d3.line()
+                .x(d => xScale(d[0]))
+                .y(d => yScale(d[1]))
+                .curve(d3.curveBasis)
+
+    svg.append('path')
+        .datum(data)
+        .attr('d', line)
+        .attr('fill', 'none')
+        .attr('stroke', 'green')
+        .attr('stroke-width', 2)
 
 }
