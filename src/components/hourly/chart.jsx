@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 
 export default function Chart({data}){
 
-    const DataArr = data.map(item => [new Date(item.dt*1000).getHours(), (parseInt(item.humidity))])
+    const DataArr = data.map(item => [data.indexOf(item), (parseInt(item.humidity))])
 
     const svgRef = useRef()
 
@@ -21,12 +21,16 @@ export default function Chart({data}){
 }
 
 function drawChart(svgRef, data){
-    const w = 475
+    const w = 1224
     const h = 300
-    console.log(data)
+    let timeArr = data.map(d => d[0])
+    //console.log(data.map(d => d[0]))
+
     const xScale = d3.scaleBand()
-                    .domain(data.map(d => d[0]))
-                    .range([25, 550])
+                    .domain(timeArr)
+                    .range([25,w])
+                    .padding(1)
+            
 
     const yScale = d3.scaleLinear()
                         .domain([d3.min(data, d => parseInt(d[1])) - 5, d3.max(data, d => parseInt(d[1])) + 5])
