@@ -13,7 +13,6 @@ class CurrentWeather extends Component{
     }
 
     getDirection(deg){
-        console.log(deg)
         return {
             rotate: `${deg}deg`
         }
@@ -22,7 +21,7 @@ class CurrentWeather extends Component{
     render(){
 
         const d = this.props.current
-        console.log(d)
+
         return(
             <div className="current">
                

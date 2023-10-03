@@ -1,16 +1,14 @@
 import { Component } from "react";
-import './homepage.css'
+import './weatherpage.css'
 
-import CurrentWeather from "../../components/current/current";
-import HeatMap from '../../components/heatMap/heatmap'
-
+import SearchArea from "../../components/weather/search/searchArea";
+import CurrentWeather from "../../components/weather/current/current";
+import HeatMap from '../../components/weather/heatMap/heatmap'
 import obj from '../../data'
-import Hourly from "../../components/hourly/hourly";
-import Daily from '../../components/daily/daily'
-import Footer from "../../components/footer/footer";
-import Tools from "../../components/tools/tools";
+import Hourly from "../../components/weather/hourly/hourly";
+import Daily from '../../components/weather/daily/daily'
 
-class HomePage extends Component{
+class WeatherPage extends Component{
 
     constructor(){
         super()
@@ -27,7 +25,6 @@ class HomePage extends Component{
     componentDidMount(){
        // this.getCoord('london')  
         //this.getForecast()     
-        console.log(obj) 
     }
 
     componentDidUpdate(){
@@ -65,21 +62,22 @@ class HomePage extends Component{
 
         return(
             <div>
-                {
-                    this.state.forecast.current 
-                        ? <div className="data-components">
-                            <CurrentWeather current = {this.state.forecast.current} />
-                            <HeatMap/>
-                            <Hourly data={obj.forecast.hourly}/>
-                            <Daily data={obj.forecast.daily}/>
-                          </div> 
-                        : <div>Fetching data...</div>
-                }
-                <Tools/>
-                <Footer/>
+                <SearchArea/>
+                <div>
+                    {
+                        this.state.forecast.current 
+                            ? <div className="data-components">
+                                <CurrentWeather current = {this.state.forecast.current} />
+                                <HeatMap/>
+                                <Hourly data={obj.forecast.hourly}/>
+                                <Daily data={obj.forecast.daily}/>
+                            </div> 
+                            : <div>Fetching data...</div>
+                    }
+                </div>
             </div>
         )
     }
 }
 
-export default HomePage
+export default WeatherPage
