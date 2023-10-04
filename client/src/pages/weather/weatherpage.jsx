@@ -1,12 +1,15 @@
 import { Component } from "react";
 import './weatherpage.css'
 
+import Header from "../../components/header";
 import SearchArea from "../../components/weather/search/searchArea";
 import CurrentWeather from "../../components/weather/current/current";
 import HeatMap from '../../components/weather/heatMap/heatmap'
 import obj from '../../data'
 import Hourly from "../../components/weather/hourly/hourly";
 import Daily from '../../components/weather/daily/daily'
+
+import banner from '../../assets/weather/banner.jpg'
 
 class WeatherPage extends Component{
 
@@ -62,6 +65,11 @@ class WeatherPage extends Component{
 
         return(
             <div>
+                <Header
+                    title="HowzWeather"
+                    description="Weather forecast and nowcast powered by OpenweathermapAPI"
+                    banner={banner}
+                />
                 <SearchArea/>
                 <div>
                     {

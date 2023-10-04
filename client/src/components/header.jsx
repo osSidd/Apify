@@ -1,10 +1,8 @@
-import banner from '../assets/weather/banner.jpg'
-
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 
-export default function Header(){
+export default function Header({title, description, banner}){
     return (
         <Container 
             sx={{
@@ -25,14 +23,14 @@ export default function Header(){
                     fontWeight={700}
                     sx={{color: '#eee'}}
                 >
-                    HowzWeather
+                    {title}
                 </Typography>
                 <Typography 
                     variant="h6"
                     fontWeight={500}
                     sx={{color:'#eee'}}
                 >
-                    Weather nowcast and forecast powered by OpenWeatherAPI
+                    {description}
                 </Typography>
             </Box>
         </Container>
