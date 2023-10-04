@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { ThemeProvider } from "@mui/material/styles"
 
 import Navbar from "./components/navbar"
-import Header from "./components/header/header"
+import Header from "./components/header"
 import WeatherPage from "./pages/weather/weatherpage"
 import Tools from "./components/tools/tools"
 import Footer from "./components/footer/footer"
