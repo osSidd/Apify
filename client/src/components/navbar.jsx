@@ -1,33 +1,70 @@
 import { Component } from "react";
-import {NavLink} from 'react-router-dom'
+import { Link as RouterLink} from 'react-router-dom'
+
+import MenuIcon from '@mui/icons-material/Menu';
 import ApiIcon from '@mui/icons-material/Api';
+
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 
 class Navbar extends Component{
     render(){
+
+        const pages = ['News', 'Weather', 'Stocks', 'Sports', 'RSS']
+
         return (
-            <div style={{position:'fixed', padding:'0 45px', top:'0', left:'0',right:'0', backgroundColor:'#333', color:"#eee", display: 'flex', alignItems:'center', justifyContent:'space-between'}}>
-                <div style={{display: 'flex', alignItems:'center'}}>
-                    <div style={{marginRight:'25px'}}>
-                        <ApiIcon
+            // Try the elevate on scroll
+            <AppBar position="fixed" color="darkCharcoal">
+                <Container maxWidth="xl">
+                    <Toolbar>
+                        <ApiIcon 
                             fontSize="large"
+                            sx={{
+                                mr:2
+                            }} 
                         />
-                    </div>
-                    <Typography
-                        variant="h4"
-                        fontWeight={900}
-                    >
-                        APIfy
-                    </Typography>
-                </div>
-                <div>
-                    <NavLink style={{marginLeft: '25px', color:'#eee', textDecoration:'none'}} to="/">News</NavLink>
-                    <NavLink style={{marginLeft: '25px', color:'#eee', textDecoration:'none'}} to="/weather">Weather</NavLink>
-                    <NavLink style={{marginLeft: '25px', color:'#eee', textDecoration:'none'}} to="/sports">Sports</NavLink>
-                    <NavLink style={{marginLeft: '25px', color:'#eee', textDecoration:'none'}} to="/stocks">Stocks</NavLink>
-                    <NavLink style={{marginLeft: '25px', color:'#eee', textDecoration:'none'}} to="/stocks">RSS</NavLink>
-                </div>        
-            </div>
+                        <Typography
+                            variant="h4"
+                            fontWeight={900}
+                            noWrap
+                            letterSpacing='0.15rem'
+                        >
+                            APIfy
+                        </Typography>
+                        <Box sx={{ml:'auto', display:{xs: 'flex', md: 'none'}}}>
+                            <IconButton
+                                size="large"
+                                color="inherit"
+                            >
+                                <MenuIcon/>
+                            </IconButton>
+                            {/* Implement menu and functionality for the small screen */}
+                        </Box>
+                        <Box sx={{ml: 'auto', display: {xs: 'none', md: 'flex'}}}>
+                            {
+                                pages.map(page => (                                    
+                                    <Button 
+                                        onClick={() => {}}
+                                        sx={{color:'#eee', ml: 2, letterSpacing: '0.1rem'}}
+                                        component={RouterLink}
+                                        to={`/${page}`}
+                                        key={page}
+                                        
+                                    >
+                                        {page}
+                                    </Button>
+                                ))
+                            }
+                        </Box>      
+                    </Toolbar>  
+                </Container>
+            </AppBar>
+            
         )
     }
 }
