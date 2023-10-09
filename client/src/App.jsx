@@ -6,7 +6,7 @@ import './App.css'
 
 import Navbar from "./components/navbar/navbar"
 import Tools from "./components/tools/tools"
-import Footer from "./components/footer/footer"
+import Footer from "./components/footer"
 
 import WeatherPage from "./pages/weather/weatherpage"
 import News from "./pages/news/news"
@@ -29,7 +29,7 @@ class App extends Component{
             <Route path="/Sports" element={<Sports/>}/>
             <Route path="*" element={<ErrorPage/>}/>
           </Routes>
-          <Tools/>
+          {/* <Tools/> */}
           <Footer/> 
         </BrowserRouter>
       </ThemeProvider>

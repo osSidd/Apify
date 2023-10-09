@@ -14,7 +14,7 @@ class Navbar extends Component{
     render(){
         return (
             // Try the elevate on scroll
-            <AppBar position="fixed" color="darkCharcoal">
+            <AppBar position="fixed" sx={{bgcolor:'#333', py:1}}>
                 <Container maxWidth="xl">
                     <Toolbar>
                         <LogoText/>

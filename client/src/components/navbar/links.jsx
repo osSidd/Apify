@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material"
 
 export default function NavLinks(){
 
-    const pages = ['News', 'Weather', 'Stocks', 'Sports', 'RSS']
+    const pages = ['News', 'Weather', 'Finance', 'Sports', 'Social', 'Entertainment', 'Health']
 
     return (
         <>
@@ -11,7 +11,7 @@ export default function NavLinks(){
                 pages.map(page => (                                    
                     <Button 
                         onClick={() => {}}
-                        sx={{color:'#eee', letterSpacing: '0.1rem'}}
+                        sx={{color:'#eee', letterSpacing: '0.1rem', fontWeight:400}}
                         component={RouterLink}
                         to={`/${page}`}
                         key={page}
