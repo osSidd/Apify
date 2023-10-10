@@ -26,7 +26,7 @@ class CurrentWeather extends Component{
         const prop = {fontSize: 14}
 
         return(   
-            <Container maxWidth="xl">
+            <Box>
                 <Typography
                     fontSize={14}
                     color="error"
@@ -66,6 +66,7 @@ class CurrentWeather extends Component{
                 
                 <Box
                     display="flex"
+                    mb={1}
                 >
                     <Typography
                         fontWeight={500}
@@ -84,7 +85,7 @@ class CurrentWeather extends Component{
                     </Typography>
                 </Box>
                 
-                <Grid container sx={{borderLeft:'1px solid crimson', mt: 1, pl:2, width:'58%'}}>
+                <Grid container sx={{borderLeft:'1px solid crimson', pl:2, width:'75%'}}>
                     <Grid md={6} item display="flex" alignItems="center">
                         <NearMeSharpIcon
                             sx={{
@@ -128,7 +129,7 @@ class CurrentWeather extends Component{
                         </Typography>
                     </Grid>
                 </Grid>
-            </Container>
+            </Box>
         )
     }
 }

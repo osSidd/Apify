@@ -1,5 +1,6 @@
 import { Component } from "react";
 import './daily.css'
+import {Box, Typography} from '@mui/material'
 
 class Daily extends Component{
 
@@ -8,8 +9,13 @@ class Daily extends Component{
         const data = this.props.data
 
         return (
-            <div className="daily">
-                <h2>8-day forecast</h2>
+            <Box mt={4}>
+                <Typography
+                    variant="h6"
+                    fontWeight={600}
+                >
+                    8-day forecast
+                </Typography>
                 {
                     data.map(d => {
                         return(
@@ -22,8 +28,8 @@ class Daily extends Component{
                             </div>
                         )
                     })
-                }
-            </div>
+                } 
+            </Box>
         )
     }
 }

@@ -4,7 +4,7 @@ import NearMeIcon from '@mui/icons-material/NearMeOutlined';
 
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
-import { Grid, IconButton, Button, OutlinedInput, FormGroup, TextField } from "@mui/material";
+import { Grid, IconButton, Button, OutlinedInput, FormGroup, TextField, Stack, Chip } from "@mui/material";
 
 class SearchArea extends Component{
 
@@ -43,7 +43,8 @@ class SearchArea extends Component{
                                 width:{
                                     sm: '200px',
                                     md: '325px'
-                                }
+                                },
+                                "& fieldset":{border: 'none'}
                             }} 
                             placeholder="Search City"
                         />
@@ -71,10 +72,14 @@ class SearchArea extends Component{
                                 }}
                             />
                         </IconButton>
-                        <Box>
+                        <Stack direction="row">
+                            <Chip label="Metric &deg;C m/s" size="small"/>
+                            <Chip label="Imperial &deg;F mph" size="small"/>
+                        </Stack>
+                        {/* <Box>
                             <Button color="primary" sx={props} size="small">Metric &deg;C m/s</Button>
                             <Button color="primary" sx={props} size="small">Imperial &deg;F mph</Button>
-                        </Box>
+                        </Box> */}
                     </Box>                        
                 </Box>
             </Container>

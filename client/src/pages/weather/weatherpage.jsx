@@ -10,6 +10,7 @@ import Hourly from "../../components/weather/hourly/hourly";
 import Daily from '../../components/weather/daily/daily'
 
 import banner from '../../assets/weather/banner.jpg'
+import { Container, Grid, Box } from "@mui/material";
 
 class WeatherPage extends Component{
 
@@ -74,12 +75,25 @@ class WeatherPage extends Component{
                 <div>
                     {
                         this.state.forecast.current 
-                            ? <div className="data-components">
-                                <CurrentWeather current = {this.state.forecast.current} />
-                                <HeatMap/>
-                                <Hourly data={obj.forecast.hourly}/>
-                                <Daily data={obj.forecast.daily}/>
-                            </div> 
+                            ? 
+                            <Container maxWidth="xl" sx={{bgcolor: '#f8f8f8', py:4}}>
+                                <Box sx={{mx: 12,}}>
+                                    <Grid container>
+                                        <Grid item md={4}>
+                                            <CurrentWeather current = {this.state.forecast.current} />
+                                        </Grid>
+                                        <Grid item md={8}>
+                                            <HeatMap/>
+                                        </Grid>
+                                        <Grid item md={7}>
+                                            <Hourly data={obj.forecast.hourly}/>
+                                        </Grid>
+                                        <Grid item md={5}>
+                                            <Daily data={obj.forecast.daily}/>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Container>
                             : <div>Fetching data...</div>
                     }
                 </div>

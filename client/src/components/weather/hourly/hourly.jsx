@@ -1,12 +1,18 @@
 import './hourly.css'
 import Chart from './chart'
+import { Box, Typography } from '@mui/material'
 
 function Hourly({data}){
     return (
-        <div className="hourly">
-            <h2>Hourly forecast</h2>
+        <Box mt={4} sx={{overflow:'hidden'}}>
+            <Typography
+                variant='h6'
+                fontWeight={600}
+            >
+                Hourly forecast
+            </Typography>
             <Chart data={data}/>
-        </div>
+        </Box>
     )
 }
 export default Hourly
