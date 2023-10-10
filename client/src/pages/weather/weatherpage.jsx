@@ -2,8 +2,8 @@ import { Component } from "react";
 import './weatherpage.css'
 
 import Header from "../../components/header";
-import SearchArea from "../../components/weather/search/searchArea";
-import CurrentWeather from "../../components/weather/current/current";
+import SearchArea from "../../components/weather/searchArea";
+import CurrentWeather from "../../components/weather/current";
 import HeatMap from '../../components/weather/heatMap/heatmap'
 import obj from '../../data'
 import Hourly from "../../components/weather/hourly/hourly";

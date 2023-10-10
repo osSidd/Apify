@@ -11,9 +11,11 @@ class SearchArea extends Component{
     render(){
 
         const props = {
-            bgcolor: 'transparent',
+            bgcolor: '#ededed',
             textTransform: 'none',
-            color:'#555'
+            color:'black',
+            fontSize:'10px',
+            fontWeight:300
         }
 
         return(
@@ -61,7 +63,7 @@ class SearchArea extends Component{
                             Search
                         </Button>
                     </FormGroup>
-                    <Box>
+                    <Box display="flex" alignItems="center">
                         <IconButton>
                             <NearMeIcon
                                 sx={{
@@ -69,8 +71,10 @@ class SearchArea extends Component{
                                 }}
                             />
                         </IconButton>
-                        <Button color="primary" sx={props} size="small">Metric &deg;C m/s</Button>
-                        <Button color="primary" sx={props} size="small">Imperial &deg;F mph</Button>
+                        <Box>
+                            <Button color="primary" sx={props} size="small">Metric &deg;C m/s</Button>
+                            <Button color="primary" sx={props} size="small">Imperial &deg;F mph</Button>
+                        </Box>
                     </Box>                        
                 </Box>
             </Container>
