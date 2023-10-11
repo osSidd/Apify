@@ -1,4 +1,4 @@
-# ![icon](./client/src/assets/siteIcon.svg) **APIfy**
+# ![icon](https://github.com/osSidd/Apify/blob/main/client/src/assets/siteIcon.svg) **APIfy**
 
 
 
