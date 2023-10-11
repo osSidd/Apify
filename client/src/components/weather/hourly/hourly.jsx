@@ -4,10 +4,11 @@ import { Box, Typography } from '@mui/material'
 
 function Hourly({data}){
     return (
-        <Box mt={4} sx={{overflow:'hidden'}}>
+        <Box sx={{overflow:'hidden', mr: 2}}>
             <Typography
                 variant='h6'
                 fontWeight={600}
+                mb={2}
             >
                 Hourly forecast
             </Typography>

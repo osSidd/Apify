@@ -53,7 +53,7 @@ class CurrentWeather extends Component{
                         src={`https://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png`}
                         sx={{
                             width: 70,
-                            marginRight: 2
+                            marginRight: 2,
                         }}
                     >
                     </Box>
@@ -85,7 +85,7 @@ class CurrentWeather extends Component{
                     </Typography>
                 </Box>
                 
-                <Grid container sx={{borderLeft:'1px solid crimson', pl:2, width:'75%'}}>
+                <Grid container rowGap={0.25} sx={{borderLeft:'1px solid crimson', pl:2, width:'75%'}}>
                     <Grid md={6} item display="flex" alignItems="center">
                         <NearMeSharpIcon
                             sx={{

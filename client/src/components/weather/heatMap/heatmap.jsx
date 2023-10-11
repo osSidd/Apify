@@ -1,5 +1,6 @@
 import { Component } from "react";
 import './heatmap.css'
+import { Box } from "@mui/material";
 
 class HeatMap extends Component{
 
@@ -11,9 +12,9 @@ class HeatMap extends Component{
 
     render(){
        return(
-            <div>
+            <Box>
                 
-            </div>
+            </Box>
        )
     }
 }

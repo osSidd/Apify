@@ -7,7 +7,7 @@ import CurrentWeather from "../../components/weather/current";
 import HeatMap from '../../components/weather/heatMap/heatmap'
 import obj from '../../data'
 import Hourly from "../../components/weather/hourly/hourly";
-import Daily from '../../components/weather/daily/daily'
+import Daily from '../../components/weather/daily'
 
 import banner from '../../assets/weather/banner.jpg'
 import { Container, Grid, Box } from "@mui/material";
@@ -78,7 +78,7 @@ class WeatherPage extends Component{
                             ? 
                             <Container maxWidth="xl" sx={{bgcolor: '#f8f8f8', py:4}}>
                                 <Box sx={{mx: 12,}}>
-                                    <Grid container>
+                                    <Grid container rowGap={4}>
                                         <Grid item md={4}>
                                             <CurrentWeather current = {this.state.forecast.current} />
                                         </Grid>
