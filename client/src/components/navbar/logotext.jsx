@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import ApiIcon from '@mui/icons-material/Api'
+import logo from '../../assets/siteIcon.svg'
 
 export default function LogoText(){
     return (
@@ -7,13 +7,20 @@ export default function LogoText(){
             display="flex"
             alignItems="center"
         >
-            <ApiIcon 
+            <Box
+                component="img"
+                src={logo}
+                mr={2}
+                width={40}
+                height={40}
+            />
+            {/* <ApiIcon 
                 fontSize="large"
                 sx={{
                     mr:2,
                     color:'#eee'
                 }} 
-            />
+            /> */}
             <Typography
                 variant="h4"
                 fontWeight={900}
