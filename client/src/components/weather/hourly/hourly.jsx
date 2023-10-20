@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material'
 
 function Hourly({data}){
     return (
-        <Box sx={{overflow:'hidden', mr: 2}}>
+        <Box sx={{overflow:'auto', mr: 2}}>
             <Typography
                 variant='h6'
                 fontWeight={600}

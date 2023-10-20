@@ -5,11 +5,6 @@ import DeviceThermostatSharpIcon from '@mui/icons-material/DeviceThermostatSharp
 
 class CurrentWeather extends Component{
 
-    
-    getDate(date){
-        return new Date(date*1000).toLocaleString()
-    }
-
     getTemp(temp, unit='C'){
         return unit === 'C' ? (temp - 272.15).toFixed(1) : (temp - 457.87).toFixed(1)
     }
@@ -19,12 +14,17 @@ class CurrentWeather extends Component{
             rotate: `${deg}deg`
         }
     }
+
+    getDate(date){
+        return new Date(date*1000).toLocaleString()
+    }
     
     render(){
 
+
         const d = this.props.current
         const prop = {fontSize: 14}
-
+       
         return(   
             <Box>
                 <Typography
@@ -32,7 +32,9 @@ class CurrentWeather extends Component{
                     color="error"
                     mb={0.5}
                 >
-                    {this.getDate(d.dt)}    
+                    {
+                       this.getDate(d.dt)
+                    }    
                 </Typography>                
                 
                 <Typography

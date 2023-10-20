@@ -25,10 +25,15 @@ export default function Chart({data}){
 function drawChart(svgRef, data){
     const w = 1224
     const h = 300
-    
+
     const xScale = d3.scaleBand()
                     .domain(data.map(item => item[0]))
                     .range([25,w])
+                    .padding(1)
+                
+    const xAxisScale= d3.scaleBand()
+                    .domain(data.map(item => item[0]))
+                    .range([0,w])
                     .padding(1)
             
 
@@ -46,10 +51,12 @@ function drawChart(svgRef, data){
     svg.append('g')
         .attr('transform', 'translate(0,'+(h-20)+')')
         .call(xAxis)
+        
+    
 
-    svg.append('g')
-        .attr('transform', 'translate(25,0)')
-        .call(yAxis)
+    // svg.append('g')
+    //     .attr('transform', 'translate(25,0)')
+    //     .call(yAxis)
 
     let line = d3.line()
                 .x(d => xScale(d[0]))
@@ -60,8 +67,19 @@ function drawChart(svgRef, data){
         .datum(data)
         .attr('d', line)
         .attr('fill', 'none')
-        .attr('stroke', 'green')
+        .attr('stroke', 'crimson')
         .attr('stroke-width', 2)
+    
+        // let line2 = d3.line()
+        // .x(d => xAxisScale(d[0]))
+        // .y(d => h-20)
+
+        // svg.append('path')
+        // .datum(data)
+        // .attr('d', line2)
+        // .attr('fill', 'none')
+        // .attr('stroke', '#ccc')
+        // .attr('stroke-width', 1) 
 
     // svg.selectAll('text')
     //     .data(data)
@@ -70,5 +88,15 @@ function drawChart(svgRef, data){
     //     .attr('x', 25)
     //     .attr('y', d => yScale(d[1]))  
     //     .text(d => d[0])  
+
+    // const Gen = d3.line()
+    // const points = [[xScale(25), yScale(125)], [xScale(w), yScale(125)]]
+
+    // const pathOfLine = Gen(points)
+
+    // d3.select('path')
+    //     .attr('d', pathOfLine)
+    //     .attr('fill', 'none')
+    //     .attr('stroke', 'blue ')
 
 }

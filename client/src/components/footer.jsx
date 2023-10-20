@@ -63,7 +63,8 @@ export default function Footer(){
                                 links.map(link => (
                                     <Button
                                         component={RouterLink}
-                                        sx={{color:'#ddd', marginRight:'auto', fontSize:'12px'}}                                        
+                                        sx={{color:'#ddd', marginRight:'auto', fontSize:'12px'}}
+                                        key={link}                                        
                                     >
                                         {link}
                                     </Button>

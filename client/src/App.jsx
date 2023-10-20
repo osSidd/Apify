@@ -1,4 +1,4 @@
-import {Component} from "react"
+import {Component, lazy, Suspense} from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { ThemeProvider } from "@mui/material/styles"
 import {theme} from './styles/styles'
@@ -8,12 +8,11 @@ import Navbar from "./components/navbar/navbar"
 import Tools from "./components/tools/tools"
 import Footer from "./components/footer"
 
-import WeatherPage from "./pages/weather/weatherpage"
-import News from "./pages/news/news"
-import Stocks from "./pages/stocks"
-import Sports from "./pages/sports"
-
-import ErrorPage from './pages/errorpage'
+const Weather = lazy(() => import("./pages/weather/weatherpage")) 
+const News = lazy(() => import("./pages/news/news")) 
+const Sports = lazy(() => import("./pages/sports")) 
+const Finance = lazy(() => import("./pages/finance")) 
+const Error = lazy(() => import("./pages/errorpage"))
 
 class App extends Component{
   render(){
@@ -21,14 +20,16 @@ class App extends Component{
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Navbar/>
+          <Suspense fallback={<div>Loading ...</div>}>
           <Routes>
-            <Route path="/" element={<div>Home</div>}/>
-            <Route path="/News" element={<News/>}/>
-            <Route path="/weather" element={<WeatherPage/>}/>
-            <Route path="/Stocks" element={<Stocks/>}/>
-            <Route path="/Sports" element={<Sports/>}/>
-            <Route path="*" element={<ErrorPage/>}/>
+              <Route path="/" element={<div>Home</div>}/>
+              <Route path="/News" element={<News/>}/>
+              <Route path="/weather" element={<Weather/>}/>
+              <Route path="/Finance" element={<Finance/>}/>
+              <Route path="/Sports" element={<Sports/>}/>
+              <Route path="*" element={<Error/>}/>
           </Routes>
+          </Suspense>            
           {/* <Tools/> */}
           <Footer/> 
         </BrowserRouter>

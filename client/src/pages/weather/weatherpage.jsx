@@ -37,7 +37,7 @@ class WeatherPage extends Component{
 
     async getCoord(city){
         
-        let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_API_KEY}`,{mode:'cors'})
+        let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
 
         let data = await res.json()
         
