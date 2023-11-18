@@ -108,7 +108,7 @@ export default function Footer(){
                     textAlign: 'center'
                 }}
             >
-                &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{color:'#fff', textDecoration: 'none', fontWeight: 700}} href="https://github.com/osSidd" target="_blank">Osama Siddiquee</Link> 
+                &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{color:'#fff', textDecoration: 'none', fontWeight: 700}} href="https://portfolio-green-two-40.vercel.app/" target="_blank">Osama Siddiquee</Link> 
             </Typography>
             
         </Container>

@@ -5,7 +5,7 @@ import Header from "../../components/header";
 import SearchArea from "../../components/weather/searchArea";
 import CurrentWeather from "../../components/weather/current";
 import HeatMap from '../../components/weather/heatMap/heatmap'
-import obj from '../../data'
+import obj from '../../data/weatherData'
 import Hourly from "../../components/weather/hourly/hourly";
 import Daily from '../../components/weather/daily'
 

@@ -5,7 +5,6 @@ import {theme} from './styles/styles'
 import './App.css'
 
 import Navbar from "./components/navbar/navbar"
-import Tools from "./components/tools/tools"
 import Footer from "./components/footer"
 
 const Weather = lazy(() => import("./pages/weather/weatherpage")) 
@@ -21,16 +20,15 @@ class App extends Component{
         <BrowserRouter>
           <Navbar/>
           <Suspense fallback={<div>Loading ...</div>}>
-          <Routes>
-              <Route path="/" element={<div>Home</div>}/>
-              <Route path="/News" element={<News/>}/>
-              <Route path="/weather" element={<Weather/>}/>
-              <Route path="/Finance" element={<Finance/>}/>
-              <Route path="/Sports" element={<Sports/>}/>
-              <Route path="*" element={<Error/>}/>
-          </Routes>
+            <Routes>
+                <Route path="/" element={<div>Home</div>}/>
+                <Route path="/News" element={<News/>}/>
+                <Route path="/weather" element={<Weather/>}/>
+                <Route path="/Finance" element={<Finance/>}/>
+                <Route path="/Sports" element={<Sports/>}/>
+                <Route path="*" element={<Error/>}/>
+            </Routes>
           </Suspense>            
-          {/* <Tools/> */}
           <Footer/> 
         </BrowserRouter>
       </ThemeProvider>

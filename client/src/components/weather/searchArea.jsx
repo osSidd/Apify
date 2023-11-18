@@ -72,9 +72,9 @@ class SearchArea extends Component{
                                 }}
                             />
                         </IconButton>
-                        <Stack direction="row">
-                            <Chip label="Metric &deg;C m/s" size="small"/>
-                            <Chip label="Imperial &deg;F mph" size="small"/>
+                        <Stack direction="row" gap={1}>
+                            <Chip label="Metric &deg;C m/s" size="small" sx={{paddingX:2}}/>
+                            <Chip label="Imperial &deg;F mph" size="small" sx={{paddingX:2}}/>
                         </Stack>
                         {/* <Box>
                             <Button color="primary" sx={props} size="small">Metric &deg;C m/s</Button>
