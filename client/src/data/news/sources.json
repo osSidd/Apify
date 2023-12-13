@@ -1,0 +1,22 @@
+[
+    {
+        "id":0,
+        "title":"Times of India",
+        "img":"https://static.toiimg.com/photo/msid-98638255.cms"
+    },
+    {
+        "id":1,
+        "title":"NDTV",
+        "img":"https://www.ndtv.com/common/header/images/ndtv_logo_black.gif"
+    },
+    {
+        "id":2,
+        "title":"India today",
+        "img":"https://akm-img-a-in.tosshub.com/indiatoday/images/mediamanager/itlogo.png"
+    },
+    {
+        "id": 3,
+        "title": "Hindustan times",
+        "img": "https://www.hindustantimes.com/images/app-images/ht2020/desktop.png"
+    }
+]
