@@ -2,7 +2,7 @@ import './hourly.css'
 import Chart from './chart'
 import { Box, Typography } from '@mui/material'
 
-function Hourly({data}){
+function Hourly({timezone, data}){
     return (
         <Box sx={{overflow:'auto', mr: 2}}>
             <Typography
@@ -12,7 +12,7 @@ function Hourly({data}){
             >
                 Hourly forecast
             </Typography>
-            <Chart data={data}/>
+            <Chart timezone={timezone} data={data}/>
         </Box>
     )
 }

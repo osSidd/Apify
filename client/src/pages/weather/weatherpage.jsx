@@ -41,13 +41,13 @@ class WeatherPage extends Component{
 
         let data = await res.json()
         
-        this.setState({
-            ...this.state, 
+        this.setState(prev => ({
+            ...prev, 
             coord:{
                 lat: data.coord.lat,
                 lon: data.coord.lon,
             }
-        })
+        }))
 
     }
 
@@ -56,14 +56,13 @@ class WeatherPage extends Component{
 
         let data = await res.json()
 
-        this.setState({
-            ...this.state,
+        this.setState(prev => ({
+            ...prev,
             forecast: data
-        })
+        }))
     }
 
     render(){
-
         return(
             <div>
                 <Header
@@ -86,7 +85,7 @@ class WeatherPage extends Component{
                                             <HeatMap/>
                                         </Grid>
                                         <Grid item md={7}>
-                                            <Hourly data={obj.forecast.hourly}/>
+                                            <Hourly timezone={obj.forecast.timezone} data={obj.forecast.hourly}/>
                                         </Grid>
                                         <Grid item md={5}>
                                             <Daily data={obj.forecast.daily}/>

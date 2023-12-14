@@ -5,9 +5,9 @@ import { Box } from "@mui/material";
 class HeatMap extends Component{
 
     componentDidMount(){
-        fetch(`https://tile.openweathermap.org/map/temp_new/${16}/${2}/${2}.png?appid=${import.meta.env.VITE_API_KEY}`, {mode: "cors"})
-            .then(res => res.json())
-            .then(data => console.log(data))
+        // fetch(`https://tile.openweathermap.org/map/temp_new/${16}/${2}/${2}.png?appid=${import.meta.env.VITE_API_KEY}`, {mode: "cors"})
+        //     .then(res => res.json())
+        //     .then(data => console.log(data))
     }
 
     render(){
