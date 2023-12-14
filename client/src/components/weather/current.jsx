@@ -1,29 +1,24 @@
 import { Component } from "react"
 import {Box, Container, Grid, Typography} from '@mui/material'
+
 import NearMeSharpIcon from '@mui/icons-material/NearMeSharp';
 import DeviceThermostatSharpIcon from '@mui/icons-material/DeviceThermostatSharp';
 
-class CurrentWeather extends Component{
+import formatDate from "../../utils/formatDate";
+import formatTemp from "../../utils/weather/formatTemp";
 
-    getTemp(temp, unit='C'){
-        return unit === 'C' ? (temp - 272.15).toFixed(1) : (temp - 457.87).toFixed(1)
-    }
+class CurrentWeather extends Component{
 
     getDirection(deg){
         return {
             rotate: `${deg}deg`
         }
     }
-
-    getDate(date){
-        return new Date(date*1000).toLocaleString()
-    }
-    
+   
     render(){
-
-
-        const d = this.props.current
+        const {current: d, location, timezone} = this.props
         const prop = {fontSize: 14}
+
        
         return(   
             <Box>
@@ -32,9 +27,7 @@ class CurrentWeather extends Component{
                     color="error"
                     mb={0.5}
                 >
-                    {
-                       this.getDate(d.dt)
-                    }    
+                    {formatDate(d.dt, true, timezone)}    
                 </Typography>                
                 
                 <Typography
@@ -42,7 +35,7 @@ class CurrentWeather extends Component{
                     fontWeight={600}
                     mb={2}
                 >
-                    London, GB
+                    {`${location.city}, ${location.country}`}
                 </Typography>
 
                 <Box
@@ -62,7 +55,7 @@ class CurrentWeather extends Component{
                     <Typography
                         variant="h4"
                     >
-                        {this.getTemp(d.temp, 'C')} &deg;C
+                        {formatTemp(d.temp, 'C')} &deg;C
                     </Typography>
                 </Box>
                 
@@ -78,7 +71,7 @@ class CurrentWeather extends Component{
                             }
                         }}
                     >
-                        Feels like {this.getTemp(d.feels_like, 'C')} &deg;C
+                        Feels like {formatTemp(d.feels_like, 'C')} &deg;C
                     </Typography>
                     <Typography
                         fontWeight={500}
@@ -117,7 +110,7 @@ class CurrentWeather extends Component{
                     </Grid>
                     <Grid item md={6}>
                         <Typography sx={prop}>
-                            Dew point: {this.getTemp(d.dew_point)} <span>&deg;</span>C
+                            Dew point: {formatTemp(d.dew_point)} <span>&deg;</span>C
                         </Typography>
                     </Grid>
                     <Grid item md={6}>

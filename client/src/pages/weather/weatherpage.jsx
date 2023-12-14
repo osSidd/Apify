@@ -5,7 +5,6 @@ import Header from "../../components/header";
 import SearchArea from "../../components/weather/searchArea";
 import CurrentWeather from "../../components/weather/current";
 import HeatMap from '../../components/weather/heatMap/heatmap'
-import obj from '../../data/weatherData'
 import Hourly from "../../components/weather/hourly/hourly";
 import Daily from '../../components/weather/daily'
 
@@ -16,23 +15,24 @@ class WeatherPage extends Component{
 
     constructor(){
         super()
-        // this.state = {
-        //     coord: {lat: 0, lon: 0},
-        //     forecast:{},
-        // }
+        this.state = {
+            coord: {lat: 0, lon: 0},
+            forecast:{},
+            country:'',
+            city:'',
+        }
 
-        this.state = obj
         this.getCoord = this.getCoord.bind(this)
         this.getForecast = this.getForecast.bind(this)
     }
 
     componentDidMount(){
-       // this.getCoord('london')  
-        //this.getForecast()     
+       this.getCoord('munich')  
+        this.getForecast()     
     }
 
     componentDidUpdate(){
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     async getCoord(city){
@@ -40,22 +40,22 @@ class WeatherPage extends Component{
         let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
 
         let data = await res.json()
-        
         this.setState(prev => ({
             ...prev, 
             coord:{
                 lat: data.coord.lat,
                 lon: data.coord.lon,
-            }
+            },
+            city: data.name,
+            country: data.sys.country
         }))
 
     }
 
     async getForecast(){
-        let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.coord.lat}&lon=${this.state.coord.lon}&exclude=minutely&appid=${import.meta.env.VITE_API_KEY}`,{mode:'cors'})
-
+        let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.coord.lat}&lon=${this.state.coord.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
         let data = await res.json()
-
+        console.log(data)
         this.setState(prev => ({
             ...prev,
             forecast: data
@@ -79,16 +79,20 @@ class WeatherPage extends Component{
                                 <Box sx={{mx: 12,}}>
                                     <Grid container rowGap={4}>
                                         <Grid item md={4}>
-                                            <CurrentWeather current = {this.state.forecast.current} />
+                                            <CurrentWeather 
+                                                timezone={this.state.forecast.timezone} 
+                                                location={{country: this.state.country, city: this.state.city}}
+                                                current = {this.state.forecast.current} 
+                                            />
                                         </Grid>
                                         <Grid item md={8}>
                                             <HeatMap/>
                                         </Grid>
                                         <Grid item md={7}>
-                                            <Hourly timezone={obj.forecast.timezone} data={obj.forecast.hourly}/>
+                                            <Hourly timezone={this.state.forecast.timezone} data={this.state.forecast.hourly}/>
                                         </Grid>
                                         <Grid item md={5}>
-                                            <Daily data={obj.forecast.daily}/>
+                                            <Daily timezone={this.state.forecast.timezone} data={this.state.forecast.daily}/>
                                         </Grid>
                                     </Grid>
                                 </Box>

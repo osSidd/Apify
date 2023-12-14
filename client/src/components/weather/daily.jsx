@@ -1,6 +1,8 @@
 import { Component } from "react";
 import {Box, IconButton, Typography} from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import formatTemp from "../../utils/weather/formatTemp";
+import formatDate from "../../utils/formatDate";
 
 class Daily extends Component{
 
@@ -34,7 +36,7 @@ class Daily extends Component{
                                     fontSize={14}
                                     sx={textColor}
                                 >
-                                    {new Date(d.dt*1000).toLocaleDateString()}
+                                    {formatDate(d.dt)}
                                 </Typography>
                                 <Box
                                     component="img"
@@ -50,7 +52,7 @@ class Daily extends Component{
                                     fontSize={14}
                                     sx={textColor}
                                 >
-                                    {parseInt(d.temp.max - 272.15)}&deg;C / {parseInt(d.temp.min - 272.15)}&deg;C
+                                    {parseInt(formatTemp(d.temp.max, 'C'))}&deg;C / {parseInt(formatTemp(d.temp.min, 'C'))}&deg;C
                                 </Typography>
                                 <Typography
                                     ml="auto"
