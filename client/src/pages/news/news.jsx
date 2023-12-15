@@ -26,7 +26,7 @@ class News extends Component{
     }
 
     componentDidMount(){    
-        fetch('http://localhost:3000/news')
+        fetch(`${import.meta.env.VITE_NEWS_URL}/news`)
             .then(res => res.json())
             .then(data => {this.setState(prev => ({...prev, data: data.articles}))})
     }
