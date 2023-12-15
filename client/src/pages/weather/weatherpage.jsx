@@ -16,50 +16,64 @@ class WeatherPage extends Component{
     constructor(){
         super()
         this.state = {
-            coord: {lat: 0, lon: 0},
-            forecast:{},
             country:'',
             city:'',
+            timezone:'',
+            current: [],
+            daily: [],
+            hourly: [],
         }
 
         this.getCoord = this.getCoord.bind(this)
         this.getForecast = this.getForecast.bind(this)
     }
-
+    
     componentDidMount(){
-       this.getCoord('munich')  
-        this.getForecast()     
+       this.getCoord('ottawa')  
     }
 
     componentDidUpdate(){
-        // console.log(this.state)
+        console.log(this.state)
     }
-
+    
     async getCoord(city){
-        
-        let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
+        try{
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
 
-        let data = await res.json()
-        this.setState(prev => ({
-            ...prev, 
-            coord:{
-                lat: data.coord.lat,
-                lon: data.coord.lon,
-            },
-            city: data.name,
-            country: data.sys.country
-        }))
+            if(!res.ok) return
+
+            let coordData = await res.json()
+            
+            let lat = coordData.coord.lat
+            let lon = coordData.coord.lon
+
+            const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
+
+            this.setState({
+                city: coordData.name,
+                country: coordData.sys.country,
+                current,
+                daily,
+                hourly,
+                timezone,
+            })
+        }catch(err){
+            console.log(err.message)
+        }
 
     }
 
-    async getForecast(){
-        let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.coord.lat}&lon=${this.state.coord.lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
-        let data = await res.json()
-        console.log(data)
-        this.setState(prev => ({
-            ...prev,
-            forecast: data
-        }))
+    async getForecast(lat, lon){
+        try{
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
+            
+            if(!res.ok) return 
+        
+            let data = await res.json()
+            return data
+        }catch(err){
+            console.log(err.message)
+        }
     }
 
     render(){
@@ -73,26 +87,26 @@ class WeatherPage extends Component{
                 <SearchArea/>
                 <div>
                     {
-                        this.state.forecast.current 
+                        this.state.daily?.[0] 
                             ? 
                             <Container maxWidth="xl" sx={{bgcolor: '#f8f8f8', py:4}}>
                                 <Box sx={{mx: 12,}}>
-                                    <Grid container rowGap={4}>
+                                    <Grid container rowSpacing={5} columnSpacing={5}>
                                         <Grid item md={4}>
                                             <CurrentWeather 
-                                                timezone={this.state.forecast.timezone} 
+                                                timezone={this.state.timezone} 
                                                 location={{country: this.state.country, city: this.state.city}}
-                                                current = {this.state.forecast.current} 
+                                                current = {this.state.current} 
                                             />
                                         </Grid>
                                         <Grid item md={8}>
                                             <HeatMap/>
                                         </Grid>
                                         <Grid item md={7}>
-                                            <Hourly timezone={this.state.forecast.timezone} data={this.state.forecast.hourly}/>
+                                            <Hourly timezone={this.state.timezone} data={this.state.hourly}/>
                                         </Grid>
                                         <Grid item md={5}>
-                                            <Daily timezone={this.state.forecast.timezone} data={this.state.forecast.daily}/>
+                                            <Daily timezone={this.state.timezone} data={this.state.daily}/>
                                         </Grid>
                                     </Grid>
                                 </Box>

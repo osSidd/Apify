@@ -5,10 +5,9 @@ import formatTemp from "../../utils/weather/formatTemp";
 import formatDate from "../../utils/formatDate";
 
 class Daily extends Component{
-
+    
     render(){
-
-        const data = this.props.data
+        const {data} = this.props
         const textColor = {
             color: '#444'
         }
@@ -30,7 +29,6 @@ class Daily extends Component{
                                 alignItems="center"
                                 mt={0}
                                 mb={-1.25}
-                                pl={3}
                             >
                                 <Typography
                                     fontSize={14}

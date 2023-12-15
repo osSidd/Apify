@@ -25,13 +25,13 @@ function formatDate(dt, timezone){
 
 function drawChart(svgRef, data, timezone){
     const w = 2500
-    const h = 320
+    const h = 300
 
     d3.select('svg').selectAll('g').remove()
 
     const xScale = d3.scaleBand()
                     .domain(data.map((d,i) => i))
-                    .range([75,w-25])
+                    .range([35,w-25])
 
     const yScale = d3.scaleLinear()
                     .domain([d3.min(data, d => formatTemp(d.temp, 'C'))-2, d3.max(data, d => formatTemp(d.temp, 'C'))+2])
@@ -47,7 +47,7 @@ function drawChart(svgRef, data, timezone){
                         .tickFormat(d => d)
 
     const leftAxis = svg.append('g')
-                        .attr('transform', 'translate(-1,0)')
+                        .attr('transform', 'translate(-15,0)')
                         .call(tempAxis)
 
     leftAxis.selectAll('text')
