@@ -1,20 +1,28 @@
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
+
+import './chart.css'
 import formatTemp from '../../../utils/weather/formatTemp';
 
 export default function Chart({timezone, data}){
 
     const svgRef = useRef()
+    const rightSvgRef = useRef()
 
    useEffect(() => {
 
-    drawChart(svgRef.current, data, timezone)
+    drawChart(rightSvgRef.current, svgRef.current, data, timezone)
 
    }, [data])
 
     return (
-        <div>
-            <svg ref={svgRef}></svg>
+        <div style={{display:'flex', justifyContent:'space-between'}}>
+            <div style={{width:'5%'}}>
+                <svg ref={rightSvgRef}></svg>
+            </div>
+            <div style={{width:'90%', overflow:'auto'}} className='graph'>
+                <svg ref={svgRef}></svg>
+            </div>
         </div>
     )
 }
@@ -23,7 +31,7 @@ function formatDate(dt, timezone){
     return new Date(dt*1000).toLocaleString('en-IN', {hour:'numeric', timeZone:timezone})
 }
 
-function drawChart(svgRef, data, timezone){
+function drawChart(rightSvgRef, svgRef, data, timezone){
     const w = 2500
     const h = 300
 
@@ -31,7 +39,7 @@ function drawChart(svgRef, data, timezone){
 
     const xScale = d3.scaleBand()
                     .domain(data.map((d,i) => i))
-                    .range([35,w-25])
+                    .range([0,w-25])
 
     const yScale = d3.scaleLinear()
                     .domain([d3.min(data, d => formatTemp(d.temp, 'C'))-2, d3.max(data, d => formatTemp(d.temp, 'C'))+2])
@@ -41,12 +49,16 @@ function drawChart(svgRef, data, timezone){
                     .attr('width', w)
                     .attr('height', h)
 
+    const rightSvg = d3.select(rightSvgRef)
+                        .attr('width', 100)
+                        .attr('height', h)
+
     const tempAxis = d3.axisLeft(yScale)
                         .ticks(5)
                         .tickPadding(-45)
                         .tickFormat(d => d)
 
-    const leftAxis = svg.append('g')
+    const leftAxis = rightSvg.append('g')
                         .attr('transform', 'translate(-15,0)')
                         .call(tempAxis)
 
@@ -114,12 +126,12 @@ function drawChart(svgRef, data, timezone){
                     .y(d => yScale(formatTemp(d.temp)))
                     .curve(d3.curveBasis)
     
-    svg.append('path')
-        .datum(data)
-        .attr('d', line)
-        .attr('fill', 'none')
-        .attr('stroke', '#eb6e4b')
-        .attr('stroke-width', 2)
+    const tempCurve = svg.append('path')
+                            .datum(data)
+                            .attr('d', line)
+                            .attr('fill', 'none')
+                            .attr('stroke', '#eb6e4b')
+                            .attr('stroke-width', 2)
 }
 
 

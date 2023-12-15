@@ -1,0 +1,22 @@
+.leftaxis{
+    background-color: yellow;
+}
+
+.graph{
+    padding-bottom: 12px;
+}
+
+.graph::-webkit-scrollbar{
+    height: 5px;
+}
+
+.graph::-webkit-scrollbar-thumb{
+    background-color: #aaa;
+    border-radius: 5px;
+}
+
+.graph::-webkit-scrollbar-track{
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 8px 0;
+}

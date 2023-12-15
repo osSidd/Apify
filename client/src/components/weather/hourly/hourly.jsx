@@ -12,7 +12,7 @@ function Hourly({timezone, data}){
             >
                 Hourly forecast
             </Typography>
-            <Box sx={{overflow:'auto'}}>
+            <Box>
                 <Chart timezone={timezone} data={data}/>
             </Box>
         </Box>

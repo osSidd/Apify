@@ -26,10 +26,11 @@ class WeatherPage extends Component{
 
         this.getCoord = this.getCoord.bind(this)
         this.getForecast = this.getForecast.bind(this)
+        this.searchCity = this.searchCity.bind(this)
     }
     
     componentDidMount(){
-       this.getCoord('ottawa')  
+       this.getCoord('london')  
     }
 
     componentDidUpdate(){
@@ -46,21 +47,37 @@ class WeatherPage extends Component{
             
             let lat = coordData.coord.lat
             let lon = coordData.coord.lon
+            let cityName = coordData.name
+            let country = coordData.sys.country
 
             const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
+            this.setWeatherData(cityName, country, current, daily, hourly, timezone)
 
-            this.setState({
-                city: coordData.name,
-                country: coordData.sys.country,
-                current,
-                daily,
-                hourly,
-                timezone,
-            })
         }catch(err){
             console.log(err.message)
         }
+    }
 
+    async setWeatherData(city, country, current, daily, hourly, timezone){
+        this.setState({
+            city,
+            country,
+            current,
+            daily,
+            hourly,
+            timezone,
+        })
+    }
+
+    async searchCity(lat, lon, city, country){
+        try{
+
+            const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
+            this.setWeatherData(city, country, current, daily, hourly, timezone)
+
+        }catch(err){
+            console.log(err.message)
+        }
     }
 
     async getForecast(lat, lon){
@@ -84,7 +101,7 @@ class WeatherPage extends Component{
                     description="Weather forecast and nowcast powered by OpenweathermapAPI"
                     banner={banner}
                 />
-                <SearchArea/>
+                <SearchArea searchCity={this.searchCity}/>
                 <div>
                     {
                         this.state.daily?.[0] 
@@ -111,7 +128,7 @@ class WeatherPage extends Component{
                                     </Grid>
                                 </Box>
                             </Container>
-                            : <div>Fetching data...</div>
+                            : <Box minHeight='50vh' display='flex' justifyContent='center' alignItems='center'>Fetching data...</Box>
                     }
                 </div>
             </div>
