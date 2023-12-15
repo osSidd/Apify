@@ -33,7 +33,7 @@ class News extends Component{
 
     async fetchCategoryNews(category, country, q){
         try{
-            const response = await fetch('http://localhost:3000/news', {
+            const response = await fetch(`${import.meta.env.VITE_NEWS_URL}/news`, {
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',
