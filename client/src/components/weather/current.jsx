@@ -85,7 +85,8 @@ class CurrentWeather extends Component{
                         <NearMeSharpIcon
                             sx={{
                                 fontSize:16,
-                                mr: 1
+                                mr: 1,
+                                transform: `rotate(${d.wind_deg}deg)`
                             }}
                         />
                         <Typography sx={prop}>
@@ -110,17 +111,17 @@ class CurrentWeather extends Component{
                     </Grid>
                     <Grid item md={6}>
                         <Typography sx={prop}>
+                            UV: {d.uvi}
+                        </Typography>
+                    </Grid>
+                    <Grid item md={6}>
+                        <Typography sx={prop}>
                             Dew point: {formatUnit(d.dew_point, unit, 'TEMP')} <span>&deg;</span>{unit==='M'?'C':'F'}
                         </Typography>
                     </Grid>
                     <Grid item md={6}>
                         <Typography sx={prop}>
-                            Visibility: {formatUnit(d.visibility, unit, 'DISTANCE')/1000} {unit==='M'?'km':'mile'}
-                        </Typography>
-                    </Grid>
-                    <Grid item md={6}>
-                        <Typography sx={prop}>
-                            UV: {d.uvi}
+                            Visibility: {formatUnit(d.visibility, unit, 'DISTANCE')/1000} {unit==='M'?'km':'miles'}
                         </Typography>
                     </Grid>
                 </Grid>

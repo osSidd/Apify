@@ -3,7 +3,8 @@ import { Box, Button } from "@mui/material"
 
 export default function NavLinks(){
 
-    const pages = ['News', 'Weather', 'Finance', 'Sports', 'Social', 'Entertainment', 'Health']
+    // const pages = ['News', 'Weather', 'Finance', 'Sports', 'Social', 'Entertainment', 'Health']
+    const pages = ['News', 'Weather']
 
     return (
         <>

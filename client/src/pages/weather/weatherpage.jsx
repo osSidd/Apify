@@ -115,7 +115,7 @@ class WeatherPage extends Component{
                             <Container maxWidth="xl" sx={{bgcolor: '#f8f8f8', py:4}}>
                                 <Box sx={{mx: 12,}}>
                                     <Grid container rowSpacing={5} columnSpacing={5}>
-                                        <Grid item md={4}>
+                                        <Grid item md={5}>
                                             <CurrentWeather 
                                                 timezone={this.state.timezone} 
                                                 location={{country: this.state.country, city: this.state.city}}
@@ -123,7 +123,7 @@ class WeatherPage extends Component{
                                                 unit={this.state.unit} 
                                             />
                                         </Grid>
-                                        <Grid item md={8}>
+                                        <Grid item md={7}>
                                             <HeatMap/>
                                         </Grid>
                                         <Grid item md={7}>
