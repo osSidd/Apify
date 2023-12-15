@@ -5,7 +5,7 @@ import NearMeSharpIcon from '@mui/icons-material/NearMeSharp';
 import DeviceThermostatSharpIcon from '@mui/icons-material/DeviceThermostatSharp';
 
 import formatDate from "../../utils/formatDate";
-import formatTemp from "../../utils/weather/formatTemp";
+import formatUnit from "../../utils/weather/formatTemp";
 
 class CurrentWeather extends Component{
 
@@ -16,7 +16,7 @@ class CurrentWeather extends Component{
     }
    
     render(){
-        const {current: d, location, timezone} = this.props
+        const {current: d, location, timezone, unit} = this.props
         const prop = {fontSize: 14}
 
        
@@ -55,7 +55,7 @@ class CurrentWeather extends Component{
                     <Typography
                         variant="h4"
                     >
-                        {formatTemp(d.temp, 'C')} &deg;C
+                        {formatUnit(d.temp, unit, 'TEMP')} &deg;{unit==='M' ? 'C' : 'F'}
                     </Typography>
                 </Box>
                 
@@ -71,7 +71,7 @@ class CurrentWeather extends Component{
                             }
                         }}
                     >
-                        Feels like {formatTemp(d.feels_like, 'C')} &deg;C
+                        Feels like {formatUnit(d.feels_like, unit, 'TEMP')} &deg;{unit==='M' ? 'C' : 'F'}
                     </Typography>
                     <Typography
                         fontWeight={500}
@@ -89,7 +89,7 @@ class CurrentWeather extends Component{
                             }}
                         />
                         <Typography sx={prop}>
-                            {d.wind_speed} m/s
+                            {formatUnit(d.wind_speed, unit, 'SPEED')} {unit==='M'?'m/s':'mph'}
                         </Typography>
                     </Grid>
                     <Grid item md={6} display="flex" alignItems="center">
@@ -100,7 +100,7 @@ class CurrentWeather extends Component{
                             }}
                         />
                         <Typography sx={prop}>
-                            {d.pressure} hPa
+                            {formatUnit(d.pressure, unit, 'PRESSURE')} {unit==='M'?'hPa':'psi'}
                         </Typography>
                     </Grid>
                     <Grid item md={6}>
@@ -110,12 +110,12 @@ class CurrentWeather extends Component{
                     </Grid>
                     <Grid item md={6}>
                         <Typography sx={prop}>
-                            Dew point: {formatTemp(d.dew_point)} <span>&deg;</span>C
+                            Dew point: {formatUnit(d.dew_point, unit, 'TEMP')} <span>&deg;</span>{unit==='M'?'C':'F'}
                         </Typography>
                     </Grid>
                     <Grid item md={6}>
                         <Typography sx={prop}>
-                            Visibility: {d.visibility/1000} km
+                            Visibility: {formatUnit(d.visibility, unit, 'DISTANCE')/1000} {unit==='M'?'km':'mile'}
                         </Typography>
                     </Grid>
                     <Grid item md={6}>

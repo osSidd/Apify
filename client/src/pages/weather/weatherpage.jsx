@@ -22,11 +22,13 @@ class WeatherPage extends Component{
             current: [],
             daily: [],
             hourly: [],
+            unit: 'M'
         }
 
         this.getCoord = this.getCoord.bind(this)
         this.getForecast = this.getForecast.bind(this)
         this.searchCity = this.searchCity.bind(this)
+        this.changeUnit = this.changeUnit.bind(this)
     }
     
     componentDidMount(){
@@ -93,6 +95,10 @@ class WeatherPage extends Component{
         }
     }
 
+    changeUnit(unit){
+        this.setState({unit})
+    }
+
     render(){
         return(
             <div>
@@ -101,7 +107,7 @@ class WeatherPage extends Component{
                     description="Weather forecast and nowcast powered by OpenweathermapAPI"
                     banner={banner}
                 />
-                <SearchArea searchCity={this.searchCity}/>
+                <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/>
                 <div>
                     {
                         this.state.daily?.[0] 
@@ -113,17 +119,26 @@ class WeatherPage extends Component{
                                             <CurrentWeather 
                                                 timezone={this.state.timezone} 
                                                 location={{country: this.state.country, city: this.state.city}}
-                                                current = {this.state.current} 
+                                                current = {this.state.current}
+                                                unit={this.state.unit} 
                                             />
                                         </Grid>
                                         <Grid item md={8}>
                                             <HeatMap/>
                                         </Grid>
                                         <Grid item md={7}>
-                                            <Hourly timezone={this.state.timezone} data={this.state.hourly}/>
+                                            <Hourly 
+                                                timezone={this.state.timezone} 
+                                                data={this.state.hourly}
+                                                unit={this.state.unit}
+                                            />
                                         </Grid>
                                         <Grid item md={5}>
-                                            <Daily timezone={this.state.timezone} data={this.state.daily}/>
+                                            <Daily 
+                                                timezone={this.state.timezone} 
+                                                data={this.state.daily}
+                                                unit={this.state.unit}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Box>

@@ -1,13 +1,13 @@
 import { Component } from "react";
 import {Box, IconButton, Typography} from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import formatTemp from "../../utils/weather/formatTemp";
 import formatDate from "../../utils/formatDate";
+import formatUnit from "../../utils/weather/formatTemp";
 
 class Daily extends Component{
     
     render(){
-        const {data} = this.props
+        const {data, unit} = this.props
         const textColor = {
             color: '#444'
         }
@@ -50,7 +50,7 @@ class Daily extends Component{
                                     fontSize={14}
                                     sx={textColor}
                                 >
-                                    {parseInt(formatTemp(d.temp.max, 'C'))}&deg;C / {parseInt(formatTemp(d.temp.min, 'C'))}&deg;C
+                                    {formatUnit(d.temp.max, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'} / {formatUnit(d.temp.min, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}
                                 </Typography>
                                 <Typography
                                     ml="auto"

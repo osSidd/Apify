@@ -2,18 +2,18 @@ import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
 import './chart.css'
-import formatTemp from '../../../utils/weather/formatTemp';
+import formatUnit from '../../../utils/weather/formatTemp';
 
-export default function Chart({timezone, data}){
+export default function Chart({timezone, data, unit}){
 
     const svgRef = useRef()
     const rightSvgRef = useRef()
 
    useEffect(() => {
 
-    drawChart(rightSvgRef.current, svgRef.current, data, timezone)
+    drawChart(rightSvgRef.current, svgRef.current, data, timezone, unit)
 
-   }, [data])
+   }, [data, unit])
 
     return (
         <div style={{display:'flex', justifyContent:'space-between'}}>
@@ -31,20 +31,10 @@ function formatDate(dt, timezone){
     return new Date(dt*1000).toLocaleString('en-IN', {hour:'numeric', timeZone:timezone})
 }
 
-function drawChart(rightSvgRef, svgRef, data, timezone){
+function drawChart(rightSvgRef, svgRef, data, timezone, unit){
     const w = 2500
     const h = 300
-
-    d3.select('svg').selectAll('g').remove()
-
-    const xScale = d3.scaleBand()
-                    .domain(data.map((d,i) => i))
-                    .range([0,w-25])
-
-    const yScale = d3.scaleLinear()
-                    .domain([d3.min(data, d => formatTemp(d.temp, 'C'))-2, d3.max(data, d => formatTemp(d.temp, 'C'))+2])
-                    .range([h-60, 45])
-
+    
     const svg = d3.select(svgRef)
                     .attr('width', w)
                     .attr('height', h)
@@ -52,6 +42,17 @@ function drawChart(rightSvgRef, svgRef, data, timezone){
     const rightSvg = d3.select(rightSvgRef)
                         .attr('width', 100)
                         .attr('height', h)
+
+    svg.selectAll('*').remove()
+    rightSvg.selectAll('*').remove()
+
+    const xScale = d3.scaleBand()
+                    .domain(data.map((d,i) => i))
+                    .range([0,w-25])
+
+    const yScale = d3.scaleLinear()
+                    .domain([d3.min(data, d => formatUnit(d.temp, unit, 'TEMP'))-2, d3.max(data, d => formatUnit(d.temp, unit, 'TEMP'))+2])
+                    .range([h-60, 45])
 
     const tempAxis = d3.axisLeft(yScale)
                         .ticks(5)
@@ -94,7 +95,7 @@ function drawChart(rightSvgRef, svgRef, data, timezone){
                 .append('text')
                 .attr('y', h)
                 .attr('x', (d,i) => xScale(i))
-                .text(d => d.wind_speed+' m/s')
+                .text(d => `${formatUnit(d.wind_speed, unit, 'SPEED')} ${unit==='M'?'m/s':'mph'}`)
                 .style('font-size', 10)
                 .style('fill','steelblue')
 
@@ -123,7 +124,7 @@ function drawChart(rightSvgRef, svgRef, data, timezone){
 
     const line = d3.line()
                     .x((d, i) => xScale(i))
-                    .y(d => yScale(formatTemp(d.temp)))
+                    .y(d => yScale(formatUnit(d.temp, unit, 'TEMP')))
                     .curve(d3.curveBasis)
     
     const tempCurve = svg.append('path')

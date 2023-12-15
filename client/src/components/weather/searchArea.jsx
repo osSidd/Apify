@@ -41,6 +41,7 @@ class SearchArea extends Component{
     }
 
     render(){
+        const unit = this.props.unit
         return(
             <Container 
                 maxWidth="xl"
@@ -126,8 +127,18 @@ class SearchArea extends Component{
                             />
                         </IconButton>
                         <Stack direction="row" gap={1}>
-                            <Chip label="Metric &deg;C m/s" size="small" sx={{paddingX:2}}/>
-                            <Chip label="Imperial &deg;F mph" size="small" sx={{paddingX:2}}/>
+                            <Chip 
+                                onClick={() => this.props.changeUnit('M')} 
+                                label="Metric &deg;C m/s" 
+                                size="small" 
+                                sx={{paddingX:2, bgcolor: unit==='M'?'white':'#dedede'}}
+                            />
+                            <Chip 
+                                onClick={() => this.props.changeUnit('I')} 
+                                label="Imperial &deg;F mph" 
+                                size="small" 
+                                sx={{paddingX:2, bgcolor: unit==='I'?'white': '#dedede'}}
+                            />
                         </Stack>
                         {/* <Box>
                             <Button color="primary" sx={props} size="small">Metric &deg;C m/s</Button>
