@@ -107,7 +107,7 @@ class WeatherPage extends Component{
                     description="Weather forecast and nowcast powered by OpenweathermapAPI"
                     banner={banner}
                 /> */}
-                {/* <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/> */}
+                <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/>
                 <div>
                     {
                         this.state.daily?.[0] 

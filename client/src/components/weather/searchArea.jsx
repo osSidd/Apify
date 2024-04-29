@@ -4,7 +4,7 @@ import NearMeIcon from '@mui/icons-material/NearMeOutlined';
 
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
-import { Grid, IconButton, Button, OutlinedInput, FormGroup, TextField, Stack, Chip, ListItem } from "@mui/material";
+import { IconButton, Button, OutlinedInput, FormGroup, Stack, Chip, ListItem } from "@mui/material";
 
 class SearchArea extends Component{
 
@@ -53,8 +53,9 @@ class SearchArea extends Component{
                 <Box 
                     display="flex"
                     alignItems="center"
-                    justifyContent="space-between"  
-                    mx={12}
+                    justifyContent="space-between"
+                    flexDirection={{xs:'column', md:'row'}}
+                    mx={{md:12}}
                 >
                     <Box position='relative'>
                         <FormGroup row>
@@ -66,7 +67,7 @@ class SearchArea extends Component{
                                     bgcolor: '#fff',
                                     height: '36px',
                                     width:{
-                                        sm: '200px',
+                                        xs: '225px',
                                         md: '325px'
                                     },
                                     "& fieldset":{border: 'none'}
@@ -102,7 +103,8 @@ class SearchArea extends Component{
                                 width:{sm: '200px', md: '325px'},
                             }}
                             boxShadow={2}
-                            borderRadius={2}    
+                            borderRadius={2}   
+                            zIndex={10} 
                         >
                             {
                                 this.state.cities.map(city => (
@@ -118,7 +120,7 @@ class SearchArea extends Component{
                             }
                         </Box>}
                     </Box>
-                    <Box display="flex" alignItems="center">
+                    <Box mt={{xs:2, md:0}} display="flex" alignItems="center">
                         <IconButton>
                             <NearMeIcon
                                 sx={{
@@ -140,10 +142,6 @@ class SearchArea extends Component{
                                 sx={{paddingX:2, bgcolor: unit==='I'?'white': '#dedede'}}
                             />
                         </Stack>
-                        {/* <Box>
-                            <Button color="primary" sx={props} size="small">Metric &deg;C m/s</Button>
-                            <Button color="primary" sx={props} size="small">Imperial &deg;F mph</Button>
-                        </Box> */}
                     </Box>                        
                 </Box>
             </Container>
