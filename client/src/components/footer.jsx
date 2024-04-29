@@ -36,7 +36,9 @@ export default function Footer(){
                     {/* Logo and text */}
 
                     <Box mx={{xs:'auto', sm:'0'}} width='fit-content'>
-                        <LogoText logoSize={24} textSize={22}/>
+                        <RouterLink to='/'>
+                            <LogoText logoSize={24} textSize={22}/>
+                        </RouterLink>
                     </Box>
 
                     {/* Description */}
@@ -59,7 +61,8 @@ export default function Footer(){
                                 <Button
                                     component={RouterLink}
                                     sx={{color:'#ddd', fontSize:{xs:10, sm:12}}}
-                                    key={link}                                        
+                                    key={link}   
+                                    to={`/${link}`}                                     
                                 >
                                     {link}
                                 </Button>

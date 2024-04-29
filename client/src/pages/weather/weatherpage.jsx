@@ -102,20 +102,20 @@ class WeatherPage extends Component{
     render(){
         return(
             <div>
-                <Header
+                {/* <Header
                     title="HowzWeather"
                     description="Weather forecast and nowcast powered by OpenweathermapAPI"
                     banner={banner}
-                />
-                <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/>
+                /> */}
+                {/* <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/> */}
                 <div>
                     {
                         this.state.daily?.[0] 
                             ? 
                             <Container maxWidth="xl" sx={{bgcolor: '#f8f8f8', py:4}}>
-                                <Box sx={{mx: 12,}}>
-                                    <Grid container rowSpacing={5} columnSpacing={5}>
-                                        <Grid item md={5}>
+                                <Box sx={{mx: {md:12},}}>
+                                    <Grid container rowSpacing={5} columnSpacing={{md:5}}>
+                                        <Grid item xs={12} md={5}>
                                             <CurrentWeather 
                                                 timezone={this.state.timezone} 
                                                 location={{country: this.state.country, city: this.state.city}}
@@ -123,17 +123,17 @@ class WeatherPage extends Component{
                                                 unit={this.state.unit} 
                                             />
                                         </Grid>
-                                        <Grid item md={7}>
+                                        {/* <Grid item xs={12} md={7}>
                                             <HeatMap/>
-                                        </Grid>
-                                        <Grid item md={7}>
+                                        </Grid> */}
+                                        <Grid item xs={12} md={7}>
                                             <Hourly 
                                                 timezone={this.state.timezone} 
                                                 data={this.state.hourly}
                                                 unit={this.state.unit}
                                             />
                                         </Grid>
-                                        <Grid item md={5}>
+                                        <Grid item xs={12} md={5}>
                                             <Daily 
                                                 timezone={this.state.timezone} 
                                                 data={this.state.daily}

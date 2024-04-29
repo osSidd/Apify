@@ -29,9 +29,10 @@ class Daily extends Component{
                                 alignItems="center"
                                 mt={0}
                                 mb={-1.25}
+                                mx={{xs:'auto', sm:0}}
                             >
                                 <Typography
-                                    fontSize={14}
+                                    fontSize={{xs:10, md:14}}
                                     sx={textColor}
                                 >
                                     {formatDate(d.dt)}
@@ -47,14 +48,14 @@ class Daily extends Component{
                                     alt="icon" 
                                 />
                                 <Typography
-                                    fontSize={14}
+                                    fontSize={{xs:10, md:14}}
                                     sx={textColor}
                                 >
                                     {formatUnit(d.temp.max, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'} / {formatUnit(d.temp.min, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}
                                 </Typography>
                                 <Typography
                                     ml="auto"
-                                    fontSize={12}
+                                    fontSize={{xs:10, md:14}}
                                     sx={{
                                         color: '#777'
                                     }}

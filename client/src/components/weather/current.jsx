@@ -1,5 +1,5 @@
 import { Component } from "react"
-import {Box, Container, Grid, Typography} from '@mui/material'
+import {Box, Grid, Typography} from '@mui/material'
 
 import NearMeSharpIcon from '@mui/icons-material/NearMeSharp';
 import DeviceThermostatSharpIcon from '@mui/icons-material/DeviceThermostatSharp';
@@ -80,8 +80,8 @@ class CurrentWeather extends Component{
                     </Typography>
                 </Box>
                 
-                <Grid container rowGap={0.25} sx={{borderLeft:'1px solid crimson', pl:2, width:'75%'}}>
-                    <Grid md={6} item display="flex" alignItems="center">
+                <Grid container rowGap={{xs:0.75, md:0.25}} sx={{borderLeft:'1px solid crimson', pl:2, width:'75%'}}>
+                    <Grid xs={6} item display="flex" alignItems="center">
                         <NearMeSharpIcon
                             sx={{
                                 fontSize:16,
@@ -93,7 +93,7 @@ class CurrentWeather extends Component{
                             {formatUnit(d.wind_speed, unit, 'SPEED')} {unit==='M'?'m/s':'mph'}
                         </Typography>
                     </Grid>
-                    <Grid item md={6} display="flex" alignItems="center">
+                    <Grid item xs={6} display="flex" alignItems="center">
                         <DeviceThermostatSharpIcon
                             sx={{
                                 fontSize:16,
@@ -104,22 +104,22 @@ class CurrentWeather extends Component{
                             {formatUnit(d.pressure, unit, 'PRESSURE')} {unit==='M'?'hPa':'psi'}
                         </Typography>
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item xs={6}>
                         <Typography sx={prop}>
                             Humidity: {d.humidity}%
                         </Typography>
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item xs={6}>
                         <Typography sx={prop}>
                             UV: {d.uvi}
                         </Typography>
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item xs={6}>
                         <Typography sx={prop}>
                             Dew point: {formatUnit(d.dew_point, unit, 'TEMP')} <span>&deg;</span>{unit==='M'?'C':'F'}
                         </Typography>
                     </Grid>
-                    <Grid item md={6}>
+                    <Grid item xs={6}>
                         <Typography sx={prop}>
                             Visibility: {formatUnit(d.visibility, unit, 'DISTANCE')/1000} {unit==='M'?'km':'miles'}
                         </Typography>
