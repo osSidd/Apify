@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import logo from '../../assets/siteIcon.svg'
 
-export default function LogoText(){
+export default function LogoText({logoSize=40, textSize=40}){
     return (
         <Box
             display="flex"
@@ -11,8 +11,8 @@ export default function LogoText(){
                 component="img"
                 src={logo}
                 mr={2}
-                width={40}
-                height={40}
+                width={logoSize}
+                height={logoSize}
             />
             {/* <ApiIcon 
                 fontSize="large"
@@ -22,7 +22,7 @@ export default function LogoText(){
                 }} 
             /> */}
             <Typography
-                variant="h4"
+                fontSize={textSize}
                 fontWeight={900}
                 noWrap
                 sx={{color: '#eee'}}
