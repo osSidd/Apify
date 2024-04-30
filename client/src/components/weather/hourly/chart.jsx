@@ -13,14 +13,14 @@ export default function Chart({timezone, data, unit}){
 
     drawChart(rightSvgRef.current, svgRef.current, data, timezone, unit)
 
-   }, [data, unit])
+   }, [data, unit, timezone])
 
     return (
         <div style={{display:'flex', justifyContent:'space-between'}}>
             <div style={{width:'5%'}}>
                 <svg ref={rightSvgRef}></svg>
             </div>
-            <div style={{width:'90%', overflow:'auto'}} className='graph'>
+            <div style={{width:'92%', overflow:'auto'}} className='graph'>
                 <svg ref={svgRef}></svg>
             </div>
         </div>
@@ -40,7 +40,7 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                     .attr('height', h)
 
     const rightSvg = d3.select(rightSvgRef)
-                        .attr('width', 100)
+                        .attr('width', 25)
                         .attr('height', h)
 
     svg.selectAll('*').remove()
@@ -54,10 +54,15 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                     .domain([d3.min(data, d => formatUnit(d.temp, unit, 'TEMP'))-2, d3.max(data, d => formatUnit(d.temp, unit, 'TEMP'))+2])
                     .range([h-60, 45])
 
+    const popScale = d3.scaleLinear()
+                        .domain([0, 1])
+                        .range([h-60, 45])
+
+    
     const tempAxis = d3.axisLeft(yScale)
                         .ticks(5)
-                        .tickPadding(-45)
-                        .tickFormat(d => d)
+                        .tickPadding(-40)
+                        .tickFormat(d => `${d}°`)
 
     const leftAxis = rightSvg.append('g')
                         .attr('transform', 'translate(-15,0)')
@@ -82,18 +87,27 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                 .data(data)
                 .enter()
                 .append('text')
-                .attr('y', h-15)
+                .attr('y', h-20)
                 .attr('x', (d,i) => xScale(i))
-                .text(d => d.weather[0].main)
+                .append('tspan')
+                .attr('x', (d, i) => xScale(i))
+                .attr('dy', -12)
+                .text(d => d.weather[0].description.split(' ')[0])
                 .style('font-size', 10)
                 .style('fill','grey')
-
+                .append('tspan')
+                .attr('x', (d, i) => xScale(i))
+                .attr('dy', 12)
+                .text(d => d.weather[0].description.split(' ')[1])
+                .style('font-size', 10)
+                .style('fill','grey')
+    
     const windContainer = svg.append('g')
     windContainer.selectAll('text')
                 .data(data)
                 .enter()
                 .append('text')
-                .attr('y', h)
+                .attr('y', h - 5)
                 .attr('x', (d,i) => xScale(i))
                 .text(d => `${formatUnit(d.wind_speed, unit, 'SPEED')} ${unit==='M'?'m/s':'mph'}`)
                 .style('font-size', 10)
@@ -104,7 +118,7 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                 .data(data)
                 .enter()
                 .append('text')
-                .attr('y', d => h- 35 - (d.pop*100))
+                .attr('y', d => popScale(d.pop))
                 .attr('x', (d, i) => xScale(i))
                 .text(d => parseInt(d.pop*100)+' %')
                 .style('font-size', 10)
@@ -115,10 +129,11 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                     .data(data)
                     .enter()
                     .append('rect')
-                    .attr('height', d => (d.pop*100))
+                    .attr('height', d => h - 60 - popScale(d.pop))
                     .attr('width', 24)
                     .attr('x', (d,i) => xScale(i))
-                    .attr('y', d => h - (d.pop*100) - 30)
+                    .attr('y', d => popScale(d.pop) + 10)
+                    .attr('rx', 5)
                     .attr('fill', 'teal')
                     .style('opacity', '0.25')
 
@@ -134,30 +149,3 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                             .attr('stroke', '#eb6e4b')
                             .attr('stroke-width', 2)
 }
-
-
-    // const timeAxis = d3.axisBottom(xScale)
-    //                 .tickFormat(d => formatDate(d.dt, timezone))
-    //                 .tickSize(0)
-    //                 .tickPadding(8)
-                    
-    // const paramAxis = d3.axisBottom(xScale)
-    //                     .tickFormat(d => d.weather[0].main)
-    //                     .tickSize(8)
-    //                     .tickPadding(2)
-    
-    // const topAxis = svg.append('g')
-    //                     .attr('transform', 'translate(0,'+(-1)+')')
-    //                     .call(timeAxis)
-
-    // const bottomAxis = svg.append('g')
-    //                     .attr('transform', 'translate(0,' + (h-30) + ')')
-    //                     .call(paramAxis)
-
-    // topAxis.selectAll('text')
-    //         .attr('fill', 'gray')
-    //         .style('font-size', 12)
-    
-    // bottomAxis.selectAll('text').attr('fill', 'gray')
-    // bottomAxis.selectAll('path').attr('stroke', '#aaa')
-    // bottomAxis.selectAll('line').attr('stroke', '#aaa')

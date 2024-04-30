@@ -123,9 +123,9 @@ class WeatherPage extends Component{
                                                 unit={this.state.unit} 
                                             />
                                         </Grid>
-                                        {/* <Grid item xs={12} md={7}>
+                                        <Grid item xs={12} md={7}>
                                             <HeatMap/>
-                                        </Grid> */}
+                                        </Grid>
                                         <Grid item xs={12} md={7}>
                                             <Hourly 
                                                 timezone={this.state.timezone} 
