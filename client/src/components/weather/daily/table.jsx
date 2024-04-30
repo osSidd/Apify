@@ -1,27 +1,16 @@
-import { Component, Fragment } from "react";
 import {Box, Grid, IconButton, Typography} from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import formatDate from "../../utils/formatDate";
-import formatUnit from "../../utils/weather/formatTemp";
+import formatDate from "../../../utils/formatDate";
+import formatUnit from "../../../utils/weather/formatTemp";
 
-class Daily extends Component{
-    
-    render(){
-        const {data, unit} = this.props
-        const textColor = {
-            color: '#444'
-        }
+export default function Table({data, unit, showDetails}){
 
-        return (
-            <Box>
-                <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    mb={0.5}
-                >
-                    8-day forecast
-                </Typography>
-                <Box pl={0.5}>
+    const textColor = {
+        color: '#444'
+    }
+
+    return (
+        <Box pl={0.5}>
                     {
                         data.map(d => {
                             return(
@@ -31,6 +20,7 @@ class Daily extends Component{
                                     key = {d.dt}
                                     px={0.5}
                                     sx={{cursor:'pointer', '&:hover':{bgcolor:'#f2f2f2'}, borderRadius:2}}
+                                    onClick={() => {showDetails(d)}}
                                 >
                                     <Grid item xs={3} sx={{my:'-5px'}}>
                                         <Typography
@@ -43,9 +33,7 @@ class Daily extends Component{
                                     <Grid item xs={2} sx={{my:'-5px'}}>
                                         <Box
                                             component="img"
-                                            sx={{
-                                                width:50
-                                            }}
+                                            sx={{width:50}}
                                             src={`https://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png`} 
                                             alt="icon" 
                                         />
@@ -77,9 +65,5 @@ class Daily extends Component{
                         })
                     } 
                 </Box>
-            </Box>
-        )
-    }
+    )
 }
-
-export default Daily

@@ -6,7 +6,7 @@ import SearchArea from "../../components/weather/searchArea";
 import CurrentWeather from "../../components/weather/current";
 import HeatMap from '../../components/weather/heatMap/heatmap'
 import Hourly from "../../components/weather/hourly/hourly";
-import Daily from '../../components/weather/daily'
+import Daily from '../../components/weather/daily/daily'
 
 import banner from '../../assets/weather/banner.jpg'
 import { Container, Grid, Box } from "@mui/material";
@@ -36,7 +36,8 @@ class WeatherPage extends Component{
     }
 
     componentDidUpdate(){
-        console.log(this.state)
+        // console.log(this.state)
+        console.log('updated')
     }
     
     async getCoord(city){
