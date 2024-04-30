@@ -19,7 +19,7 @@ class SearchArea extends Component{
 
     async getCities(city){
         try{
-            const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${import.meta.env.VITE_WEATHER_API_KEY}`, {mode:'cors'})
+            const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=${import.meta.env.VITE_WEATHER_API_KEY}`, {mode:'cors'})
 
             if(!res.ok) return 
 
