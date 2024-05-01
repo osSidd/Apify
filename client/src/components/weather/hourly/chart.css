@@ -23,3 +23,9 @@
     padding: 8px 0;
     cursor: pointer;
 }
+
+@media(max-width:576px) {
+    .graph::-webkit-scrollbar{
+        display: none;
+    }
+}

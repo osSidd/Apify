@@ -7,7 +7,7 @@ export default function Header({title, description, banner}){
         <Container 
             sx={{
                 mt: 8, 
-                py:12, 
+                py:{xs: 8, md:12}, 
                 bgcolor: '#333', 
                 backgroundImage:`linear-gradient(90deg, rgba(23,34, 21, 0.5), rgba(121,231, 122,0.5)), url(${banner})`,
                 backgroundRepeat:'no-repeat',
@@ -16,17 +16,17 @@ export default function Header({title, description, banner}){
             }} 
             maxWidth="xl"
         >
-            <Box mx={12}>
+            <Box mx={{md:12}}>
                 <Typography
-                    variant='h2'
                     component="h1"
+                    fontSize={{xs:40, md:48}}
                     fontWeight={700}
                     sx={{color: '#eee'}}
                 >
                     {title}
                 </Typography>
                 <Typography 
-                    variant="h6"
+                    fontSize={{xs:16, md:20}}
                     fontWeight={500}
                     sx={{color:'#eee'}}
                 >

@@ -14,7 +14,7 @@ class Navbar extends Component{
     render(){
         return (
             // Try the elevate on scroll
-            <AppBar position="fixed" sx={{bgcolor:'#333', py:1}}>
+            <AppBar position="fixed" elevation={0} sx={{bgcolor:'#333', py:1}}>
                 <Container maxWidth="xl">
                     <Toolbar>
                         <LogoText/>
@@ -27,7 +27,7 @@ class Navbar extends Component{
                             </IconButton>
                             {/* Implement menu and functionality for the small screen */}
                         </Box>
-                        <Box ml="auto">
+                        <Box ml="auto" display={{xs:'none', md:'block'}}>
                             <NavLinks/>
                         </Box>
                     </Toolbar>  

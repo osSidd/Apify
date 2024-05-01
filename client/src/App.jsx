@@ -18,7 +18,7 @@ class App extends Component{
     return(
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          {/* <Navbar/> */}
+          <Navbar/>
           <Suspense fallback={<div>Loading ...</div>}>
             <Routes>
                 <Route path="/" element={<div>Home</div>}/>

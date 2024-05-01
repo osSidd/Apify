@@ -103,11 +103,11 @@ class WeatherPage extends Component{
     render(){
         return(
             <div>
-                {/* <Header
+                <Header
                     title="HowzWeather"
                     description="Weather forecast and nowcast powered by OpenweathermapAPI"
                     banner={banner}
-                /> */}
+                />
                 <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/>
                 <div>
                     {

@@ -10,9 +10,9 @@ export default function LogoText({logoSize=40, textSize=40}){
             <Box
                 component="img"
                 src={logo}
-                mr={2}
-                width={logoSize}
-                height={logoSize}
+                mr={{xs:1, md:2}}
+                width={{xs:24, md:40}}
+                height={{xs:24, md: 40}}
             />
             {/* <ApiIcon 
                 fontSize="large"
@@ -22,7 +22,7 @@ export default function LogoText({logoSize=40, textSize=40}){
                 }} 
             /> */}
             <Typography
-                fontSize={textSize}
+                fontSize={{xs:24, md: 40}}
                 fontWeight={900}
                 noWrap
                 sx={{color: '#eee'}}
