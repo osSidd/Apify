@@ -42,6 +42,11 @@ class SearchArea extends Component{
 
     render(){
         const unit = this.props.unit
+        const chipProp = {
+            paddingX:1, 
+            fontSize: 12,
+            borderRadius:2
+        }
         return(
             <Container 
                 maxWidth="xl"
@@ -66,9 +71,10 @@ class SearchArea extends Component{
                                     outline: 'none',
                                     bgcolor: '#fff',
                                     height: '36px',
+                                    maxHeight:'36px',
                                     width:{
                                         xs: '225px',
-                                        md: '325px'
+                                        md: '475px'
                                     },
                                     "& fieldset":{border: 'none'}
                                 }}
@@ -128,18 +134,20 @@ class SearchArea extends Component{
                                 }}
                             />
                         </IconButton>
-                        <Stack direction="row" gap={1}>
+                        <Stack direction="row">
                             <Chip 
                                 onClick={() => this.props.changeUnit('M')} 
                                 label="Metric &deg;C m/s" 
                                 size="small" 
-                                sx={{paddingX:2, bgcolor: unit==='M'?'white':'#dedede'}}
+                                sx={{...chipProp, bgcolor: unit==='M'?'white':'transparent', "&:hover":{bgcolor: unit === 'M' ? 'white': 'transparent'}}}
                             />
                             <Chip 
                                 onClick={() => this.props.changeUnit('I')} 
                                 label="Imperial &deg;F mph" 
                                 size="small" 
-                                sx={{paddingX:2, bgcolor: unit==='I'?'white': '#dedede'}}
+                                sx={{...chipProp, bgcolor: unit==='I'?'white': 'transparent', "&:hover":{
+                                    bgcolor: unit === "I" ? 'white' : 'transparent'
+                                }}}
                             />
                         </Stack>
                     </Box>                        

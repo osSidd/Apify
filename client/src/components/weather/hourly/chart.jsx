@@ -51,7 +51,7 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                     .range([0,w-25])
 
     const yScale = d3.scaleLinear()
-                    .domain([d3.min(data, d => formatUnit(d.temp, unit, 'TEMP'))-2, d3.max(data, d => formatUnit(d.temp, unit, 'TEMP'))+2])
+                    .domain([d3.min(data, d => formatUnit(d.temp, unit, 'TEMP'))-5, d3.max(data, d => formatUnit(d.temp, unit, 'TEMP'))+5])
                     .range([h-60, 25])
 
     const popScale = d3.scaleLinear()
