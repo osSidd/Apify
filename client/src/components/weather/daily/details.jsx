@@ -5,21 +5,50 @@ import formatUnit from "../../../utils/weather/formatTemp";
 import formatDate from "../../../utils/formatDate";
 import NearMeSharpIcon from "@mui/icons-material/NearMeSharp";
 import DeviceThermostatSharpIcon from "@mui/icons-material/DeviceThermostatSharp";
+import { useEffect, useState } from "react";
 
-export default function Details({hideDetails, unit, data}){
+export default function Details({hideDetails, showDetails, unit, data, daily}){
 
     const prop = {
         fontSize: 14
     }
 
+    const [translateIndex, setTranslateIndex] = useState(0)
+
+    useEffect(() => {
+        daily.forEach((d, index) => {
+            if(translateIndex >= 7){
+                setTranslateIndex(-4)
+                return
+            }        
+
+            if(translateIndex >= 4){
+                 setTranslateIndex(-4)
+                 return
+            }
+            if(d.dt === data.dt) setTranslateIndex(-index)
+        })
+    }, [data, daily])
+
     return (
         <Box>
-            <Box onClick={hideDetails}>
-                <IconButton>
-                    <ArrowDropUpIcon/>
-                </IconButton>
+            <Box display='flex' alignItems='center' bgcolor='#f2f2f2' borderRadius={2} overflow='hidden'>
+                <Box display='flex' alignItems='center' sx={{transition: 'transform 0.5s ease-in-out', transform: `translateX(${5.75*translateIndex}rem)`}}>
+                    {
+                        daily.map(d => (
+                            <Box key={d.dt} flexShrink={0} m={1} onClick={() => {showDetails(d)}} sx={{cursor:'pointer',}}>
+                                <Typography fontSize={14} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false)}</Typography>
+                            </Box>
+                        ))
+                    }
+                </Box>
+                <Box onClick={hideDetails} bgcolor='#f2f2f2'>
+                    <IconButton>
+                        <ArrowDropUpIcon/>
+                    </IconButton>
+                </Box>
             </Box>
-            <Box>
+            <Box mt={3}>
                 <Box display='flex' alignItems='center'>
                     <Box
                         component='img'

@@ -44,7 +44,7 @@ class Daily extends Component{
                     8-day forecast
                 </Typography>
                 { this.state.rowToggled ? 
-                    <Details hideDetails={this.hideDetails} unit={unit} data={this.state.dayWeather}/> : 
+                    <Details hideDetails={this.hideDetails} showDetails={this.showDetails} unit={unit} daily={data} data={this.state.dayWeather}/> : 
                     <Table showDetails={this.showDetails} data={data} unit={unit}/>
                 }        
             </Box>

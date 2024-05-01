@@ -35,7 +35,7 @@ export default function Footer(){
 
                     {/* Logo and text */}
 
-                    <Box mx={{xs:'auto', sm:'0'}} width='fit-content'>
+                    <Box mx={{xs:'auto', sm:'0'}} sx={{"&>a":{textDecoration:'none'}}} width='fit-content'>
                         <RouterLink to='/'>
                             <LogoText logoSize={24} textSize={22}/>
                         </RouterLink>

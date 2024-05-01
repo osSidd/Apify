@@ -50,6 +50,7 @@ export default function Table({data, unit, showDetails}){
                                         <Typography
                                             fontSize={{xs:10, md:12}}
                                             ml='auto'
+                                            textAlign='right'
                                             sx={{
                                                 color: '#777'
                                             }}
