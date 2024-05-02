@@ -17,32 +17,39 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
 
     useEffect(() => {
         daily.forEach((d, index) => {
-            if(translateIndex >= 7){
-                setTranslateIndex(-4)
-                return
-            }        
+            if(d.dt === data.dt) setTranslateIndex(prev => {
 
-            if(translateIndex >= 4){
-                 setTranslateIndex(-4)
-                 return
-            }
-            if(d.dt === data.dt) setTranslateIndex(-index)
+                if(index > 4) return 4
+
+                if(index === 4 && prev >= 4){
+                    console.log('herw')
+                    return 3
+                }
+
+                if(index < 4 && prev >= index && index > 0){
+                    return index - 1
+                }
+
+                else return index
+            })
         })
     }, [data, daily])
 
     return (
         <Box>
-            <Box display='flex' alignItems='center' bgcolor='#f2f2f2' borderRadius={2} overflow='hidden'>
-                <Box display='flex' alignItems='center' sx={{transition: 'transform 0.5s ease-in-out', transform: `translateX(${5.75*translateIndex}rem)`}}>
-                    {
-                        daily.map(d => (
-                            <Box key={d.dt} flexShrink={0} m={1} onClick={() => {showDetails(d)}} sx={{cursor:'pointer',}}>
-                                <Typography fontSize={14} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false)}</Typography>
-                            </Box>
-                        ))
-                    }
+            <Box display='flex' justifyContent='space-between' alignItems='center' bgcolor='#f2f2f2' borderRadius={2} pl={0.5} overflow='hidden'>
+                <Box width='90%'>
+                    <Box display='flex' alignItems='center' sx={{transition: 'transform 0.5s ease-in-out', transform: `translateX(${-5.75*translateIndex}rem)`}}>
+                        {
+                            daily.map(d => (
+                                <Box key={d.dt} flexShrink={0} m={1} onClick={() => {showDetails(d)}} sx={{cursor:'pointer',}}>
+                                    <Typography fontSize={14} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false)}</Typography>
+                                </Box>
+                            ))
+                        }
+                    </Box>
                 </Box>
-                <Box onClick={hideDetails} bgcolor='#f2f2f2'>
+                <Box width='7.5%' onClick={hideDetails} bgcolor='#f2f2f2' display='flex' alignItems='center' justifyContent='center' zIndex={10}>
                     <IconButton>
                         <ArrowDropUpIcon/>
                     </IconButton>
