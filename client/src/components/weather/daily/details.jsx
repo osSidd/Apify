@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 export default function Details({hideDetails, showDetails, unit, data, daily}){
 
     const prop = {
-        fontSize: 14
+        fontSize: {xs:12, lg:14}
     }
 
     const [translateIndex, setTranslateIndex] = useState(0)
@@ -22,7 +22,6 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
                 if(index > 4) return 4
 
                 if(index === 4 && prev >= 4){
-                    console.log('herw')
                     return 3
                 }
 
@@ -43,7 +42,7 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
                         {
                             daily.map(d => (
                                 <Box key={d.dt} flexShrink={0} m={1} onClick={() => {showDetails(d)}} sx={{cursor:'pointer',}}>
-                                    <Typography fontSize={14} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false)}</Typography>
+                                    <Typography fontSize={{xs:12, lg:14}} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false)}</Typography>
                                 </Box>
                             ))
                         }
@@ -111,16 +110,16 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
             <Box mt={2}>
                 <Grid rowGap={1} container>
                     <Grid item xs={4}></Grid>
-                    <Grid sx={prop} item xs={2}>Morning</Grid>
-                    <Grid sx={prop} item xs={2}>Afternoon</Grid>
-                    <Grid sx={prop} item xs={2}>Evening</Grid>
-                    <Grid sx={prop} item xs={2}>Night</Grid>
-                    <Grid sx={{...prop, textTransform:'uppercase', fontSize:12, color:'gray'}} item xs={4}>temperature</Grid>
+                    <Grid sx={{...prop, fontSize:{xs:12, sm:10, lg:14}}} item xs={2}>Morning</Grid>
+                    <Grid sx={{...prop, fontSize:{xs:12, sm:10, lg:14}}} item xs={2}>Afternoon</Grid>
+                    <Grid sx={{...prop, fontSize:{xs:12, sm:10, lg:14}}} item xs={2}>Evening</Grid>
+                    <Grid sx={{...prop, fontSize:{xs:12, sm:10, lg:14}}} item xs={2}>Night</Grid>
+                    <Grid sx={{...prop, textTransform:'uppercase', fontSize:{xs:10, lg:12}, color:'gray'}} item xs={4}>temperature</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.temp.morn, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.temp.day, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.temp.eve, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.temp.night, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
-                    <Grid sx={{...prop, textTransform:'uppercase', fontSize:12, color:'gray'}} item xs={4}>feels like</Grid>
+                    <Grid sx={{...prop, textTransform:'uppercase', fontSize:{xs:10, lg:12}, color:'gray'}} item xs={4}>feels like</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.feels_like.morn, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.feels_like.day, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
                     <Grid sx={prop} item xs={2}>{formatUnit(data.feels_like.eve, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}</Grid>
