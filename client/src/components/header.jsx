@@ -16,7 +16,7 @@ export default function Header({title, description, banner}){
             }} 
             maxWidth="xl"
         >
-            <Box mx={{md:12}}>
+            <Box mx={{lg:12}}>
                 <Typography
                     component="h1"
                     fontSize={{xs:40, md:48}}

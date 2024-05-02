@@ -24,7 +24,7 @@ export default function Table({data, unit, showDetails}){
                                 >
                                     <Grid item xs={3} sx={{my:'-5px'}}>
                                         <Typography
-                                            fontSize={{xs:10, md:14}}
+                                            fontSize={{xs:10, lg:14}}
                                             sx={textColor}
                                         >
                                             {formatDate(d.dt)}
@@ -40,7 +40,7 @@ export default function Table({data, unit, showDetails}){
                                     </Grid>
                                     <Grid sx={{my:'-5px'}} item xs={3}>
                                         <Typography
-                                            fontSize={{xs:10, md:14}}
+                                            fontSize={{xs:10, lg:14}}
                                             sx={textColor}
                                         >
                                             {formatUnit(d.temp.max, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'} / {formatUnit(d.temp.min, unit, 'TEMP')}&deg;{unit==='M'?'C':'F'}
@@ -48,7 +48,7 @@ export default function Table({data, unit, showDetails}){
                                     </Grid>
                                     <Grid item xs={4} sx={{my:'-5px'}} display='flex' alignItems='center'>
                                         <Typography
-                                            fontSize={{xs:10, md:12}}
+                                            fontSize={{xs:10, lg:12}}
                                             ml='auto'
                                             textAlign='right'
                                             sx={{

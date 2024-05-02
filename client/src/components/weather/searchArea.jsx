@@ -60,7 +60,7 @@ class SearchArea extends Component{
                     alignItems="center"
                     justifyContent="space-between"
                     flexDirection={{xs:'column', md:'row'}}
-                    mx={{md:12}}
+                    mx={{lg:12}}
                 >
                     <Box position='relative'>
                         <FormGroup row>
