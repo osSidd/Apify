@@ -15,6 +15,7 @@ class HeatMap extends Component{
             center: [this.props.lon, this.props.lat],
             layer: 'precipitation_new'
         }
+        this.map = {}
     }
 
     componentDidMount(){
