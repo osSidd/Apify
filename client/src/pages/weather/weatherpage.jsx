@@ -107,6 +107,7 @@ class WeatherPage extends Component{
                     title="HowzWeather"
                     description="Weather forecast and nowcast powered by OpenweathermapAPI"
                     banner={'https://images.unsplash.com/photo-1630260643564-7f9c9c140682?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d2VhdGhlciUyMGZvcmVjYXN0fGVufDB8fDB8fHww'}
+                    // banner={'https://home.openweathermap.org/assets/history_banner-3e72b47aa91f9e874b5e56197a88feacafd37ad4eaccfa3974302b37004ec7f5.png'}
                 />
                 <SearchArea searchCity={this.searchCity} changeUnit={this.changeUnit} unit={this.state.unit}/>
                 <div>
@@ -125,7 +126,7 @@ class WeatherPage extends Component{
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={7}>
-                                            <HeatMap/>
+                                            {/* <HeatMap/> */}
                                         </Grid>
                                         <Grid item xs={12} sm={7}>
                                             <Hourly 

@@ -18,14 +18,15 @@ class App extends Component{
     return(
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Navbar/>
+          {/* <Navbar/> */}
           <Suspense fallback={<div>Loading ...</div>}>
             <Routes>
-                <Route path="/" element={<div>Home</div>}/>
-                <Route path="/News" element={<News/>}/>
-                <Route path="/weather" element={<Weather/>}/>
-                <Route path="/Finance" element={<Finance/>}/>
-                <Route path="/Sports" element={<Sports/>}/>
+                {/* <Route path="/" element={<div>Home</div>}/> */}
+                {/* <Route path="/News" element={<News/>}/> */}
+                <Route path="/" element={<Weather/>}/>
+                {/* <Route path="/weather" element={<Weather/>}/> */}
+                {/* <Route path="/Finance" element={<Finance/>}/> */}
+                {/* <Route path="/Sports" element={<Sports/>}/> */}
                 <Route path="*" element={<Error/>}/>
             </Routes>
           </Suspense>            

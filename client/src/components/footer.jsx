@@ -15,10 +15,10 @@ export default function Footer(){
         <Container 
             maxWidth='xl'
             sx={{
-                bgcolor: '#282828',     
+                // bgcolor: '#282828',     
             }} 
         >
-            <Box
+            {/* <Box
                 sx={{
                     py:3,
                     borderBottom:'1px solid #555'
@@ -35,13 +35,13 @@ export default function Footer(){
 
                     {/* Logo and text */}
 
-                    <Box mx={{xs:'auto', sm:'0'}} width='fit-content'>
+                    {/* <Box mx={{xs:'auto', sm:'0'}} width='fit-content'>
                         <LogoText logoSize={24} textSize={22}/>
-                    </Box>
+                    </Box> */}
 
                     {/* Description */}
 
-                    <Typography
+                    {/* <Typography
                         sx={{color: '#eee'}}
                         mt={1}
                         fontSize={12}
@@ -49,11 +49,11 @@ export default function Footer(){
                         An api integration project which demonstrates integration of public apis and brings news feeds, weather updates under a single hood. 
                     </Typography>
                 </Box>
-                <Box mt={{xs:4, sm:0}}>
+                <Box mt={{xs:4, sm:0}}> */}
 
                     {/* Navigation and page links */}
 
-                    <Box>
+                    {/* <Box>
                         {
                             links.map(link => (
                                 <Button
@@ -66,11 +66,11 @@ export default function Footer(){
                                 </Button>
                             ))
                         }
-                    </Box>
+                    </Box> */}
 
                     {/* Social icons */}
 
-                    <Box textAlign='center'>
+                    {/* <Box textAlign='center'>
                         <IconButton title='Linkedin' sx={{color:'#fff'}} href='https://www.linkedin.com/in/osama-siddiquee-5722a1a1/' target='_blank'>
                             <LinkedInIcon sx={{fontSize: '1.5rem', mr:1}}/>
                         </IconButton>
@@ -87,14 +87,14 @@ export default function Footer(){
                         </IconButton>
                     </Box>
                 </Box>
-            </Box>
+            </Box> */}
 
             {/* copyright section */}
 
             <Box>
                 <Typography
                     sx={{
-                        color:'#eee',
+                        // color:'#eee',
                     }}
                     py={2}
                     fontSize={{
@@ -103,7 +103,8 @@ export default function Footer(){
                     }}
                     textAlign='center'
                 >
-                    &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{color:'#fff', textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link> 
+                    {/* &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{color:'#fff', textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link>  */}
+                    &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link> 
                 </Typography>
             </Box>            
         </Container>

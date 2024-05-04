@@ -6,7 +6,7 @@ export default function Header({title, description, banner}){
     return (
         <Container 
             sx={{
-                mt: 8, 
+                // mt: 8, 
                 py:{xs: 8, md:12}, 
                 bgcolor: '#333', 
                 backgroundImage:`linear-gradient(90deg, rgba(23,34, 21, 0.5), rgba(121,231, 122,0.5)), url(${banner})`,
