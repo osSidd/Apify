@@ -22,7 +22,9 @@ class WeatherPage extends Component{
             current: [],
             daily: [],
             hourly: [],
-            unit: 'M'
+            unit: 'M',
+            lat:21,
+            lon:23
         }
 
         this.getCoord = this.getCoord.bind(this)
@@ -54,14 +56,14 @@ class WeatherPage extends Component{
             let country = coordData.sys.country
 
             const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
-            this.setWeatherData(cityName, country, current, daily, hourly, timezone)
+            this.setWeatherData(cityName, country, current, daily, hourly, timezone, lat, lon)
 
         }catch(err){
             console.log(err.message)
         }
     }
 
-    async setWeatherData(city, country, current, daily, hourly, timezone){
+    async setWeatherData(city, country, current, daily, hourly, timezone, lat, lon){
         this.setState({
             city,
             country,
@@ -69,14 +71,15 @@ class WeatherPage extends Component{
             daily,
             hourly,
             timezone,
+            lat,
+            lon,
         })
     }
 
     async searchCity(lat, lon, city, country){
         try{
-
             const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
-            this.setWeatherData(city, country, current, daily, hourly, timezone)
+            this.setWeatherData(city, country, current, daily, hourly, timezone, lat, lon)
 
         }catch(err){
             console.log(err.message)
@@ -117,7 +120,7 @@ class WeatherPage extends Component{
                             <Container maxWidth="xl" sx={{bgcolor: '#f8f8f8', py:4}}>
                                 <Box sx={{mx: {lg:12},}}>
                                     <Grid container rowSpacing={5} columnSpacing={{sm:5}}>
-                                        <Grid item xs={12} sm={5}>
+                                        <Grid item xs={12} sm={4}>
                                             <CurrentWeather 
                                                 timezone={this.state.timezone} 
                                                 location={{country: this.state.country, city: this.state.city}}
@@ -125,8 +128,8 @@ class WeatherPage extends Component{
                                                 unit={this.state.unit} 
                                             />
                                         </Grid>
-                                        <Grid item xs={12} sm={7}>
-                                            {/* <HeatMap/> */}
+                                        <Grid item xs={12} sm={8}>
+                                            <HeatMap lat={this.state.lat} lon={this.state.lon}/>
                                         </Grid>
                                         <Grid item xs={12} sm={7}>
                                             <Hourly 
