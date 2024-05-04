@@ -1,14 +1,5 @@
-#heatmap{                  
-	raster-opacity: 0.6;
-	raster-scaling: lanczos;
-	raster-colorizer-default-mode: linear;
-	raster-colorizer-default-color: transparent;
-	raster-colorizer-stops:
-	stop(0, rgba(225, 200, 100, 0))
-	stop(0.1, rgba(200, 150, 150, 0))
-	stop(0.2, rgba(150, 150, 170, 0))
-	stop(0.5, rgba(120, 120, 190, 0))
-	stop(1, rgba(110, 110, 205, 0.3))
-	stop(10, rgba(80,80, 225, 0.7))
-	stop(140, rgba(20, 20, 255, 0.9));
+@media(max-width:767px){
+	#heatmap{
+		min-height: 300px;
+	}
 }

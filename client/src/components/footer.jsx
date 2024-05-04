@@ -104,7 +104,8 @@ export default function Footer(){
                     textAlign='center'
                 >
                     {/* &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{color:'#fff', textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link>  */}
-                    &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link> 
+                    {/* &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link>  */}
+                    Developed by <Link sx={{textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link> | Design inspired by <Link sx={{textDecoration:'none', fontWeight:700}} href="https://openweathermap.org">openweathermap.org</Link> 
                 </Typography>
             </Box>            
         </Container>

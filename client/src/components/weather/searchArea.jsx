@@ -59,7 +59,7 @@ class SearchArea extends Component{
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"
-                    flexDirection={{xs:'column', md:'row'}}
+                    flexDirection={{xs:'column', sm:'row'}}
                     mx={{lg:12}}
                 >
                     <Box position='relative'>

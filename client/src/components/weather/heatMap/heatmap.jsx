@@ -72,6 +72,9 @@ class HeatMap extends Component{
     //     return !condition
     // }
 
+
+    // add minutely call for gettting 1 hr data to be used in heatmap precipitation description box
+
     render(){
        return(
         <div style={{width:'100%', height:'100%'}} ref={this.mapRef} id="heatmap"></div>

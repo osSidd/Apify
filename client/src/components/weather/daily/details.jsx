@@ -13,6 +13,10 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
         fontSize: {xs:12, lg:14}
     }
 
+    console.log(data)
+
+    const rainAmt = data?.rain ?? undefined
+
     const [translateIndex, setTranslateIndex] = useState(0)
 
     useEffect(() => {
@@ -71,7 +75,7 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
                 <Box mt={2} pl={2} display='flex' alignItems='center' flexWrap='wrap' rowGap={1} columnGap={2}>
                     <Box display='flex' alignItems='center'>
                         <WaterDropIcon fontSize="12" color="primary"/>
-                        <Typography ml={1} sx={prop}>chances of rain {parseInt(data.pop*100)}%</Typography>
+                        <Typography ml={1} sx={prop}>{rainAmt ? rainAmt + ' mm' : null} ({parseInt(data.pop*100)}%)</Typography>
                     </Box>
                     <Box display='flex' alignItems='center'>
                         <NearMeSharpIcon
