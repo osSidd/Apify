@@ -55,7 +55,7 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                     .range([h-60, 25])
 
     const popScale = d3.scaleLinear()
-                        .domain([0, 1])
+                        .domain([0, d3.max(data, d => d?.rain?.['1h'] ?? 0) + 0.25])
                         .range([h-60, 40])
 
     
@@ -113,26 +113,16 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                 .style('font-size', 10)
                 .style('fill','steelblue')
 
-    const popContainer = svg.append('g')
-    popContainer.selectAll('text')
-                .data(data)
-                .enter()
-                .append('text')
-                .attr('y', d => popScale(d.pop))
-                .attr('x', (d, i) => xScale(i))
-                .text(d => parseInt(d.pop*100)+' %')
-                .style('font-size', 10)
-                .style('fill','teal')
 
     const popBarContainer = svg.append('g')
     popBarContainer.selectAll('rect')
                     .data(data)
                     .enter()
                     .append('rect')
-                    .attr('height', d => h - 60 - popScale(d.pop))
+                    .attr('height', d => h - 60 - popScale(d?.rain?.['1h'] ?? 0))
                     .attr('width', 24)
                     .attr('x', (d,i) => xScale(i))
-                    .attr('y', d => popScale(d.pop) + 10)
+                    .attr('y', d => popScale(d?.rain?.['1h'] ?? 0) + 10)
                     .attr('rx', 5)
                     .attr('fill', 'teal')
                     .style('opacity', '0.25')
@@ -148,4 +138,30 @@ function drawChart(rightSvgRef, svgRef, data, timezone, unit){
                             .attr('fill', 'none')
                             .attr('stroke', '#eb6e4b')
                             .attr('stroke-width', 2)
+
+    function getPrep(d){
+        return d?.rain?.['1h'] ?? undefined
+    }
+
+    const popContainer = svg.append('g')
+    popContainer.selectAll('text')
+                .data(data)
+                .enter()
+                .append('text')
+                .attr('y', d => popScale(d?.rain?.['1h'] ?? 0))
+                .attr('x', (d, i) => xScale(i))
+                .append('tspan')
+                .attr('x', (d, i) => xScale(i))
+                .attr('dy', -14)
+                .text(d => {let p = getPrep(d); return p ? p + ' mm/h' : ''})
+                .style('font-size', 10)
+                .style('font-weight', 600)
+                .style('fill','teal')
+                .append('tspan')
+                .attr('x', (d, i) => xScale(i))
+                .attr('dy', d => (getPrep(d) ? 14 : 0))
+                .text(d => parseInt(d.pop*100) + '%')
+                .style('font-size', 10)
+                .style('fill','teal')
+                .style('font-weight', 500)
 }

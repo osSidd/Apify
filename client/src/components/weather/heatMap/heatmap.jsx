@@ -5,7 +5,6 @@ import tt from '@tomtom-international/web-sdk-maps'
 import {services} from '@tomtom-international/web-sdk-services'
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
 
-
 class HeatMap extends Component{
 
     constructor(props){
@@ -13,11 +12,16 @@ class HeatMap extends Component{
         this.mapRef = createRef()
         this.apiKey = import.meta.env.VITE_TOMTOM_KEY
         this.state = {
-            center: [this.props.lon, this.props.lat]
+            center: [this.props.lon, this.props.lat],
+            layer: 'precipitation_new'
         }
     }
 
     componentDidMount(){
+        this.setMap()
+    }
+
+    setMap(){
         this.map = tt.map({
             key: this.apiKey,
             container: this.mapRef.current,
@@ -29,12 +33,12 @@ class HeatMap extends Component{
             this.map.addSource('owm_source', {
                 type: 'raster',
                 tiles: [
-                    `https://tile.openweathermap.org/map/precipitation_new/6/30/30.png?appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+                    `https://tile.openweathermap.org/map/${this.state.layer}/{z}/{x}/{y}.png?appid=${import.meta.env.VITE_WEATHER_API_KEY}`
                 ],
                 tileSize:256,
                 minzoom: 0,
                 maxzoom:12,
-                // attribution: 'openWeatherMapAttribution'
+                attribution: 'openweathermap.org'
             })
     
             this.map.addLayer({
@@ -50,7 +54,7 @@ class HeatMap extends Component{
         const condition = Math.abs(state.center.lon - props.lon) < 0.01 && Math.abs(state.center.lat - props.lat) < 0.01
 
         if(condition) return null
-        return {center: [props.lon, props.lat]}
+        return {...state, center: [props.lon, props.lat]}
     }
 
     componentWillUnmount(){
@@ -59,31 +63,7 @@ class HeatMap extends Component{
 
     componentDidUpdate(){
         console.log('heatmap updated', this.state)
-        this.map = tt.map({
-            key: this.apiKey,
-            container: this.mapRef.current,
-            center: this.state.center,
-            zoom: 6,
-        })
-        this.map.on('load', () => {
-            this.map.addSource('owm_source', {
-                type: 'raster',
-                tiles: [
-                    `https://tile.openweathermap.org/map/temp_new/6/30/30.png?appid=${import.meta.env.VITE_WEATHER_API_KEY}`
-                ],
-                tileSize:256,
-                minzoom: 0,
-                maxzoom:12,
-                // attribution: 'openWeatherMapAttribution'
-            })
-    
-            this.map.addLayer({
-                id:'owm_layer',
-                type: 'raster',
-                source: 'owm_source',
-                layout: {visibility: 'visible'}
-            })
-        })
+        this.setMap()
     }
 
     // shouldComponentUpdate(props, nextState){
