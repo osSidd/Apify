@@ -15,6 +15,8 @@ class SearchArea extends Component{
             cities: [],
             displayCities: false
         }
+
+        this.getGeoLocation = this.getGeoLocation.bind(this)
     }
 
     async getCities(city){
@@ -38,6 +40,32 @@ class SearchArea extends Component{
     handleChange(e){
         console.log(e.target.value)
         this.setState({city: e.target.value})
+    }
+
+    getGeoLocation(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(async p => {
+                try{
+                    let lat = p.coords.latitude
+                    let lon = p.coords.longitude
+                    
+                    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+
+                    const data = await res.json()
+
+                    const city = data.name
+                    const country = data.sys.country
+
+                    this.props.searchCity(lat, lon, city, country)
+                }catch(err){
+                    console.log(err.message)
+                }
+                
+            })
+        }
+        else{
+            console.log('geolocation not supported')
+        }
     }
 
     render(){
@@ -127,7 +155,7 @@ class SearchArea extends Component{
                         </Box>}
                     </Box>
                     <Box mt={{xs:2, md:0}} display="flex" alignItems="center">
-                        <IconButton>
+                        <IconButton onClick={this.getGeoLocation}>
                             <NearMeIcon
                                 sx={{
                                  stroke: 'white'                                
