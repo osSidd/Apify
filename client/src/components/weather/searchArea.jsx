@@ -91,43 +91,45 @@ class SearchArea extends Component{
                     mx={{lg:12}}
                 >
                     <Box position='relative'>
-                        <FormGroup row>
-                            <OutlinedInput 
-                                sx={{
-                                    borderRadius: '5px 0 0 5px',
-                                    border:'none',
-                                    outline: 'none',
-                                    bgcolor: '#fff',
-                                    height: '36px',
-                                    maxHeight:'36px',
-                                    width:{
-                                        xs: '225px',
-                                        md: '475px'
-                                    },
-                                    "& fieldset":{border: 'none'}
-                                }}
-                                name="city"
-                                value={this.state.city}
-                                onChange={e => this.handleChange(e)} 
-                                placeholder="Search City"
-                            />
-                            <Button 
-                                disableElevation 
-                                sx={{
-                                    borderRadius: '0 5px 5px 0', 
-                                    bgcolor: '#444',
-                                    height: '36px',
-                                    textTransform: 'capitalize',
-                                    "&:hover": {
-                                        bgcolor: '#333'
-                                    }
-                                }} 
-                                variant="contained"
-                                onClick={this.state.city ? () => this.getCities(this.state.city) : undefined}
-                            >
-                                Search
-                            </Button>
-                        </FormGroup>
+                        <form onSubmit={this.state.city ? (e) => {e.preventDefault(); this.getCities(this.state.city)} : undefined}>
+                            <FormGroup row>
+                                <OutlinedInput 
+                                    sx={{
+                                        borderRadius: '5px 0 0 5px',
+                                        border:'none',
+                                        outline: 'none',
+                                        bgcolor: '#fff',
+                                        height: '36px',
+                                        maxHeight:'36px',
+                                        width:{
+                                            xs: '225px',
+                                            md: '475px'
+                                        },
+                                        "& fieldset":{border: 'none'}
+                                    }}
+                                    name="city"
+                                    value={this.state.city}
+                                    onChange={e => this.handleChange(e)} 
+                                    placeholder="Search City"
+                                />
+                                <Button 
+                                    disableElevation 
+                                    sx={{
+                                        borderRadius: '0 5px 5px 0', 
+                                        bgcolor: '#444',
+                                        height: '36px',
+                                        textTransform: 'capitalize',
+                                        "&:hover": {
+                                            bgcolor: '#333'
+                                        }
+                                    }} 
+                                    variant="contained"
+                                    type="submit"
+                                >
+                                    Search
+                                </Button>
+                            </FormGroup>
+                        </form>
                         {
                             this.state.displayCities &&
                         <Box 

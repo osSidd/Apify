@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import tt from '@tomtom-international/web-sdk-maps'
 import {services} from '@tomtom-international/web-sdk-services'
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
+import Legend from "./legend";
 
 class HeatMap extends Component{
 
@@ -78,7 +79,10 @@ class HeatMap extends Component{
 
     render(){
        return(
-        <div style={{width:'100%', height:'100%'}} ref={this.mapRef} id="heatmap"></div>
+        <div style={{width:'100%', height:'100%', zIndex:1, position:'relative'}}>
+        <div style={{width:'100%', height:'100%', zIndex:1}} ref={this.mapRef} id="heatmap"></div>
+        <Legend minutely={this.props.minutely}/>
+        </div>
        )
     }
 }

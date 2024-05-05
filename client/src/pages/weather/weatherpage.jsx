@@ -22,6 +22,7 @@ class WeatherPage extends Component{
             current: [],
             daily: [],
             hourly: [],
+            minutely: [],
             unit: 'M',
             lat:21,
             lon:23
@@ -49,27 +50,28 @@ class WeatherPage extends Component{
             if(!res.ok) return
 
             let coordData = await res.json()
-            
+
             let lat = coordData.coord.lat
             let lon = coordData.coord.lon
             let cityName = coordData.name
             let country = coordData.sys.country
 
-            const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
-            this.setWeatherData(cityName, country, current, daily, hourly, timezone, lat, lon)
+            const {current, daily, hourly, minutely, timezone} = await this.getForecast(lat, lon)
+            this.setWeatherData(cityName, country, current, daily, hourly, minutely, timezone, lat, lon)
 
         }catch(err){
             console.log(err.message)
         }
     }
 
-    async setWeatherData(city, country, current, daily, hourly, timezone, lat, lon){
+    async setWeatherData(city, country, current, daily, hourly, minutely, timezone, lat, lon){
         this.setState({
             city,
             country,
             current,
             daily,
             hourly,
+            minutely,
             timezone,
             lat,
             lon,
@@ -78,8 +80,8 @@ class WeatherPage extends Component{
 
     async searchCity(lat, lon, city, country){
         try{
-            const {current, daily, hourly, timezone} = await this.getForecast(lat, lon)
-            this.setWeatherData(city, country, current, daily, hourly, timezone, lat, lon)
+            const {current, daily, hourly, timezone, minutely} = await this.getForecast(lat, lon)
+            this.setWeatherData(city, country, current, daily, hourly, minutely, timezone, lat, lon)
 
         }catch(err){
             console.log(err.message)
@@ -88,7 +90,7 @@ class WeatherPage extends Component{
 
     async getForecast(lat, lon){
         try{
-            let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
             
             if(!res.ok) return 
         
@@ -129,7 +131,7 @@ class WeatherPage extends Component{
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={7} lg={8}>
-                                            <HeatMap lat={this.state.lat} lon={this.state.lon}/>
+                                            <HeatMap minutely={this.state.minutely} lat={this.state.lat} lon={this.state.lon}/>
                                         </Grid>
                                         <Grid item xs={12} sm={7}>
                                             <Hourly 
