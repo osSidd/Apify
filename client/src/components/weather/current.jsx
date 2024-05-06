@@ -80,7 +80,7 @@ class CurrentWeather extends Component{
                     </Typography>
                 </Box>
                 
-                <Grid container rowGap={{xs:0.75, md:0.25}} sx={{borderLeft:'1px solid crimson', pl:2, width:'75%'}}>
+                <Grid container rowGap={{xs:0.75, md:0.25}} sx={{borderLeft:'1px solid crimson', pl:2,}}>
                     <Grid xs={6} item display="flex" alignItems="center">
                         <NearMeSharpIcon
                             sx={{

@@ -3,3 +3,21 @@
 		min-height: 300px;
 	}
 }
+
+#weather-map-container{
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(7px);
+	z-index: 20;
+}
+
+#weather-map{
+	width: 90%;
+	height: 90%;
+	position: relative;
+}

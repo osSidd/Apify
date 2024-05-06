@@ -39,8 +39,8 @@ class WeatherPage extends Component{
     }
 
     componentDidUpdate(){
-        console.log(this.state)
-        console.log('updated')
+        // console.log(this.state)
+        // console.log('updated')
     }
     
     async getCoord(city){

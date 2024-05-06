@@ -1,11 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as d3 from 'd3'
 import formatDate from "../../../utils/formatDate";
+import './legend.css'
 
 export default function Legend({minutely}){
     
     const legendRef = useRef()
+    const [screenWidth, setScreenWidth] = useState(screen.width)
 
     function getLegend(){
 
@@ -38,12 +40,12 @@ export default function Legend({minutely}){
 
     useEffect(() => {
         makeChart()
-    }, [minutely])
+    }, [minutely, screenWidth])
 
     function getPopTime(data){
         const now = data[0]
         const pop = data.filter(d => d.precipitation)
-        // const end = data.find((d,i) => d.precipitation && i)
+        const end = data.find((d,i) => d.precipitation && i)
         const fullHr = data.find((d,i) => !d.precipitation && i)
         
         if(!pop.length) return 'No precipitation within an hour'
@@ -58,6 +60,9 @@ export default function Legend({minutely}){
         }
 
         else{
+            // mins = new Date(end.dt*1000) - new Date(now.dt*1000)
+            // int = parseInt(mins/(60*1000))
+
             return `Precipitation will start within ${int > 1 ? int + ' mins' : int + ' min'}`
         }
     }
@@ -75,15 +80,14 @@ export default function Legend({minutely}){
 
     function makeChart(){
         const height = 50
-        const width = 425
+        const width = screenWidth >= 1024 ? 425 : (screenWidth > 600 ? 325 : (screenWidth > 350 ? 260 : 225))
         const paddingBottom = 10
         const rightPadding = 35
         const leftPadding = 10
-
+        
         const svg = d3.select(legendRef.current)
                         .attr('height', height)
                         .attr('width', width)
-                        // .style('background-color', 'pink')
         
         svg.selectAll('*').remove()
 
@@ -118,30 +122,27 @@ export default function Legend({minutely}){
                     .data(minutely)
                     .enter()
                     .append('text')
-                    // .text((d,i) => {if(i%15===0 || i === minutely.length - 1) return formatDate(d.dt, true, false)})
                     .attr('x', (d,i) => xScaleMajor(d) - xScaleMajor.bandwidth())
                     .attr('y', 30)
-                    .style('font-size', 10)
                     .append('tspan')
                     .text((d,i) => {if(i%15===0 || i === minutely.length - 1) return formatDate(d.dt, true, false)})
                     .attr('x', (d,i) => xScaleMajor(d) - xScaleMajor.bandwidth())
                     .attr('dy', 0)
-                    .style('font-size', 10)
                     .append('tspan')
                     .text((d,i) => {if(i%15===0 || i === minutely.length - 1){if(i === 0) return 'now'; else if(i === minutely.length - 1) return '60 min'; return `${parseInt(i/15)*15} min`}})
                     .attr('x', (d,i) => xScaleMajor(d))
                     .attr('dy', -12)
-                    .style('font-size', 10)
     }
 
     const legendArr = getLegend() 
-    console.log(legendArr)
 
     return (
-        <Box position='absolute' bottom={10} left={10} bgcolor='white' width='75%' boxShadow={5} borderRadius={1} zIndex={10} sx={{cursor:'pointer'}}>
+        <Box position='absolute' bottom={10} left={10} bgcolor='white' width={{xs:'95%', lg:'75%'}} boxShadow={5} borderRadius={1} zIndex={10} sx={{cursor:'pointer'}}>
             <Typography ml={1} mt={1} fontSize={14} fontWeight={500}>{getPopTime(minutely)}</Typography>
             <Box display='flex' justifyContent='space-between' alignItems='flex-end'>
-                <svg ref={legendRef}></svg>
+                <Box width='75%'>
+                    <svg id="legend-svg" ref={legendRef}></svg>
+                </Box>
                 <Box pr={1} pb={1}>
                     {
                         legendArr.map(d => (

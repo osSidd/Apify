@@ -1,0 +1,25 @@
+#legend-svg tspan{
+    font-size: 10px;
+}
+
+@media(max-width:768px){
+    #legend-svg{
+        width:330px;
+    }
+    #legend-svg tspan{
+        font-size: 8px;
+    }
+}
+
+@media(max-width:700px){
+    #legend-svg{
+        width:275px;
+    }
+}
+
+
+@media(max-width:350px){
+    #legend-svg{
+        width:240px;
+    }
+}
