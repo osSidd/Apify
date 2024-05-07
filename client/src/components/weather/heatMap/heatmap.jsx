@@ -31,8 +31,8 @@ class HeatMap extends Component{
     }
 
     componentDidMount(){
-        this.setMap(this.mapRef.current)
-        this.setMap(this.weatherRef.current) 
+        const ele = this.state.displayWeatherMap ? this.weatherRef.current : this.mapRef.current
+        this.setMap(ele)
     }
 
     setMap(container){
@@ -77,9 +77,9 @@ class HeatMap extends Component{
     }
 
     componentDidUpdate(){
+        const ele = this.state.displayWeatherMap ? this.weatherRef.current : this.mapRef.current
         console.log('heatmap component updated')
-        this.setMap(this.mapRef.current)
-        this.setMap(this.weatherRef.current) 
+        this.setMap(ele)
     }
 
     showWeatherMap(){
@@ -123,7 +123,7 @@ class HeatMap extends Component{
                 )   
             }
             <div onClick={this.showWeatherMap} style={{width:'100%', height:'100%', zIndex:1}} ref={this.mapRef} id="heatmap"></div>
-            {/* <Legend minutely={this.props.minutely}/> */}
+            <Legend minutely={this.props.minutely}/>
         </div>
        )
     }

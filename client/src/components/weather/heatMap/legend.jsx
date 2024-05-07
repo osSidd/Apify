@@ -80,10 +80,10 @@ export default function Legend({minutely}){
 
     function makeChart(){
         const height = 50
-        const width = screenWidth >= 1024 ? 425 : (screenWidth > 600 ? 325 : (screenWidth > 350 ? 260 : 225))
+        const width = screenWidth >= 1024 ? 425 : (screenWidth > 600 ? 325 : (screenWidth > 350 ? 270 : 225))
         const paddingBottom = 10
         const rightPadding = 35
-        const leftPadding = 10
+        const leftPadding = screenWidth > 1024 ? 20 : 15
         
         const svg = d3.select(legendRef.current)
                         .attr('height', height)
@@ -126,11 +126,11 @@ export default function Legend({minutely}){
                     .attr('y', 30)
                     .append('tspan')
                     .text((d,i) => {if(i%15===0 || i === minutely.length - 1) return formatDate(d.dt, true, false)})
-                    .attr('x', (d,i) => xScaleMajor(d) - xScaleMajor.bandwidth())
+                    .attr('x', (d,i) => xScaleMajor(d) - 2*xScaleMajor.bandwidth())
                     .attr('dy', 0)
                     .append('tspan')
                     .text((d,i) => {if(i%15===0 || i === minutely.length - 1){if(i === 0) return 'now'; else if(i === minutely.length - 1) return '60 min'; return `${parseInt(i/15)*15} min`}})
-                    .attr('x', (d,i) => xScaleMajor(d))
+                    .attr('x', (d,i) => xScaleMajor(d) - xScaleMajor.bandwidth())
                     .attr('dy', -12)
     }
 
