@@ -1,5 +1,4 @@
 export default function getDirection(deg){
-    console.log(deg, typeof deg)
     if(348.75 <= deg) return 'N'
     if(326.25 <= deg) return 'NNW'
     if(303.75 <= deg) return 'NW'

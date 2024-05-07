@@ -10,7 +10,7 @@ class Daily extends Component{
         this.state = {
             dayWeather: {},
             rowToggled: false,
-            timezone: 'Europe/London'
+            timezone: this.props.timezone
         }
         this.showDetails = this.showDetails.bind(this)
         this.hideDetails = this.hideDetails.bind(this)
@@ -18,6 +18,7 @@ class Daily extends Component{
 
     static getDerivedStateFromProps(props, state){
         if(state.timezone !== props.timezone) return {...state, timezone: props.timezone}
+        return null
     }
     
     showDetails(d){
@@ -37,7 +38,7 @@ class Daily extends Component{
     
     render(){
         const {data, unit} = this.props
-
+        console.log('daily component')
         return (
             <Box>
                 <Typography

@@ -11,6 +11,9 @@ export default function Footer(){
 
     const links = ['about','news', 'weather']
 
+    const linkProp = {textDecoration:'none', fontWeight:700}
+    const copyrightProp = { fontSize: {xs:10, sm:12}, textAlign:'center'}
+
     return(
         <Container 
             maxWidth='xl'
@@ -91,22 +94,15 @@ export default function Footer(){
 
             {/* copyright section */}
 
-            <Box>
+            <Box display='flex' flexDirection={{xs:'column', md:'row'}} alignItems='center' justifyContent='space-between' py={2} mx={{lg:12}}>
                 <Typography
-                    sx={{
-                        // color:'#eee',
-                    }}
-                    py={2}
-                    fontSize={{
-                        xs:10,
-                        sm:12
-                    }}
-                    textAlign='center'
+                    sx={copyrightProp}
                 >
                     {/* &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{color:'#fff', textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link>  */}
                     {/* &copy; Copyright APIfy {new Date().getFullYear()} | Designed & Developed by <Link sx={{textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link>  */}
-                    Developed by <Link sx={{textDecoration: 'none', fontWeight: 700}} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link> | Design inspired by <Link sx={{textDecoration:'none', fontWeight:700}} href="https://openweathermap.org">openweathermap.org</Link> 
+                    Developed by <Link sx={linkProp} href="https://os-sidd.vercel.app/" target="_blank">Osama Siddiquee</Link> | Design inspired by <Link sx={linkProp} href="https://openweathermap.org">openweathermap.org</Link> 
                 </Typography>
+                <Typography mt={{xs:1, md:0}} sx={copyrightProp}><Link href="https://unsplash.com/photos/blue-pink-and-yellow-abstract-painting-7kU-BMYARQs" target="_blank" sx={linkProp}>Header image (Unsplash)</Link> by <Link href="https://unsplash.com/@sushioutlaw" target="_blank" sx={linkProp}>Brian McGowan</Link></Typography>
             </Box>            
         </Container>
     )

@@ -3,6 +3,7 @@ import Chart from './chart'
 import { Box, Typography } from '@mui/material'
 
 function Hourly({timezone, data, unit}){
+    console.log('hourly component updated')
     return (
         <Box>
             <Typography

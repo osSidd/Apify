@@ -10,6 +10,7 @@ import getDirection from "../../utils/weather/windDirection";
 
 class CurrentWeather extends Component{    
     render(){
+        console.log('current component updated')
         const {current: d, location, timezone, unit} = this.props
         const prop = {fontSize: 14, color:'#232323'}
        

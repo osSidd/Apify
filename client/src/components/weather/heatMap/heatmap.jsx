@@ -2,10 +2,12 @@ import { createPortal } from 'react-dom'
 import { Component, createRef } from "react";
 import './heatmap.css'
 import { Box, IconButton, Typography } from "@mui/material";
+
+import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import tt from '@tomtom-international/web-sdk-maps'
 import {services} from '@tomtom-international/web-sdk-services'
-import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import Legend from "./legend";
+
 import CloseIcon from '@mui/icons-material/Close';
 
 class HeatMap extends Component{
@@ -19,6 +21,7 @@ class HeatMap extends Component{
             center: [this.props.lon, this.props.lat],
             layer: 'precipitation_new',
             displayWeatherMap: false,
+            city: this.props.city,
         }
         this.map = {remove(){}}
         this.setMap = this.setMap.bind(this)
@@ -28,8 +31,8 @@ class HeatMap extends Component{
     }
 
     componentDidMount(){
-        // this.setMap(this.mapRef.current)
-        // this.setMap(this.weatherRef.current) 
+        this.setMap(this.mapRef.current)
+        this.setMap(this.weatherRef.current) 
     }
 
     setMap(container){
@@ -63,10 +66,10 @@ class HeatMap extends Component{
     }
 
     static getDerivedStateFromProps(props, state){
-        const condition = Math.abs(state.center.lon - props.lon) < 0.01 && Math.abs(state.center.lat - props.lat) < 0.01
+        const condition = props.city === state.city
 
         if(condition) return null
-        return {...state, center: [props.lon, props.lat]}
+        return {...state, center: [props.lon, props.lat], city: props.city}
     }
 
     componentWillUnmount(){
@@ -74,7 +77,7 @@ class HeatMap extends Component{
     }
 
     componentDidUpdate(){
-        // console.log('heatmap updated', this.state)
+        console.log('heatmap component updated')
         this.setMap(this.mapRef.current)
         this.setMap(this.weatherRef.current) 
     }
@@ -103,17 +106,7 @@ class HeatMap extends Component{
         })
     }
 
-    // shouldComponentUpdate(props, nextState){
-    //     console.log(props, nextState)
-    //     const condition = Math.abs(this.state.center.lon - props.lon) < 0.01 && Math.abs(this.state.center.lat - props.lat) < 0.01
-    //     return !condition
-    // }
-
-
-    // add minutely call for gettting 1 hr data to be used in heatmap precipitation description box
-
     render(){
-        console.log(this.state)
        return(
         <div style={{width:'100%', height:'100%', zIndex:1, position:'relative'}}>
             {

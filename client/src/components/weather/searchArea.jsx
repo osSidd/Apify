@@ -26,7 +26,13 @@ class SearchArea extends Component{
             if(!res.ok) return 
 
             const data  = await res.json()
-            this.setState({cities:data, displayCities: true, city: ''})
+             
+            if(res.ok && !data.length)  this.props.setCityError(true, this.state.city)
+            
+            else { 
+                this.setState({cities:data, displayCities: true, city: ''})
+                this.props.setCityError(false, '')
+            } 
         }catch(err){
             console.log(err.message)
         }
@@ -91,7 +97,7 @@ class SearchArea extends Component{
                     mx={{lg:12}}
                 >
                     <Box position='relative'>
-                        <form onSubmit={this.state.city ? (e) => {e.preventDefault(); this.getCities(this.state.city)} : undefined}>
+                        <form onSubmit={this.state.city ? (e) => {e.preventDefault(); this.getCities(this.state.city)} : e => e.preventDefault()}>
                             <FormGroup row>
                                 <OutlinedInput 
                                     sx={{
