@@ -28,8 +28,8 @@ class HeatMap extends Component{
     }
 
     componentDidMount(){
-        this.setMap(this.mapRef.current)
-        this.setMap(this.weatherRef.current) 
+        // this.setMap(this.mapRef.current)
+        // this.setMap(this.weatherRef.current) 
     }
 
     setMap(container){
@@ -130,7 +130,7 @@ class HeatMap extends Component{
                 )   
             }
             <div onClick={this.showWeatherMap} style={{width:'100%', height:'100%', zIndex:1}} ref={this.mapRef} id="heatmap"></div>
-            <Legend minutely={this.props.minutely}/>
+            {/* <Legend minutely={this.props.minutely}/> */}
         </div>
        )
     }

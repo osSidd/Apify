@@ -39,7 +39,7 @@ class WeatherPage extends Component{
     }
 
     componentDidUpdate(){
-        // console.log(this.state)
+        console.log(this.state)
         // console.log('updated')
     }
     
