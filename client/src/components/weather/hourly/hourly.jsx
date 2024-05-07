@@ -9,6 +9,7 @@ function Hourly({timezone, data, unit}){
                 variant='h6'
                 fontWeight={600}
                 mb={2}
+                color='#232323'
             >
                 Hourly forecast
             </Typography>

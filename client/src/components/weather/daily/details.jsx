@@ -3,17 +3,17 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import formatUnit from "../../../utils/weather/formatTemp";
 import formatDate from "../../../utils/formatDate";
-import NearMeSharpIcon from "@mui/icons-material/NearMeSharp";
 import DeviceThermostatSharpIcon from "@mui/icons-material/DeviceThermostatSharp";
 import { useEffect, useState } from "react";
+import NavigationIcon from "@mui/icons-material/Navigation";
+import getDirection from '../../../utils/weather/windDirection'
 
-export default function Details({hideDetails, showDetails, unit, data, daily}){
+export default function Details({hideDetails, showDetails, unit, data, daily, timezone}){
 
     const prop = {
-        fontSize: {xs:12, lg:14}
+        fontSize: {xs:12, lg:14},
+        color:'#232323'
     }
-
-    console.log(data)
 
     const rainAmt = data?.rain ?? undefined
 
@@ -46,7 +46,7 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
                         {
                             daily.map(d => (
                                 <Box key={d.dt} flexShrink={0} m={1} onClick={() => {showDetails(d)}} sx={{cursor:'pointer',}}>
-                                    <Typography fontSize={{xs:12, lg:14}} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false)}</Typography>
+                                    <Typography fontSize={{xs:12, lg:14}} fontWeight={data.dt === d.dt ? 600 : 400}>{formatDate(d.dt, false, true, timezone)}</Typography>
                                 </Box>
                             ))
                         }
@@ -74,26 +74,28 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
                 </Box>
                 <Box mt={2} pl={2} display='flex' alignItems='center' flexWrap='wrap' rowGap={1} columnGap={2}>
                     <Box display='flex' alignItems='center'>
-                        <WaterDropIcon fontSize="12" color="primary"/>
+                        <WaterDropIcon fontSize="12"sx={{color:'#555'}}/>
                         <Typography ml={1} sx={prop}>{rainAmt ? rainAmt + ' mm' : null} ({parseInt(data.pop*100)}%)</Typography>
                     </Box>
                     <Box display='flex' alignItems='center'>
-                        <NearMeSharpIcon
+                        <NavigationIcon
                             sx={{
                                 fontSize:16,
+                                color:'#444',
                                 mr: 1,
-                                transform: `rotate(${data.wind_deg}deg)`
+                                transform: `rotate(${180 + data.wind_deg}deg)`
                             }}
                         />
                         <Typography sx={prop}>
-                            {formatUnit(data.wind_speed, unit, 'SPEED')} {unit==='M'?'m/s':'mph'}
+                            {formatUnit(data.wind_speed, unit, 'SPEED')} {unit==='M'?'m/s':'mph'} {getDirection(data.wind_deg)}
                         </Typography>
                     </Box>
                     <Box display='flex' alignItems='center'>
                         <DeviceThermostatSharpIcon
                             sx={{
                                 fontSize:16,
-                                mr:1
+                                mr:1,
+                                color:'#444'
                             }}
                         />
                         <Typography sx={prop}>
@@ -133,11 +135,11 @@ export default function Details({hideDetails, showDetails, unit, data, daily}){
             <Box mt={4} display='flex' alignItems='center'>
                 <Box mr={2}>
                     <Typography textAlign='center' textTransform='uppercase' fontSize={10} color='gray'>sunrise</Typography>
-                    <Typography fontSize={14}>{formatDate(data.sunrise, true, false)}</Typography>
+                    <Typography fontSize={14}>{formatDate(data.sunrise, true, false, timezone)}</Typography>
                 </Box>
                 <Box>
                     <Typography textAlign='center' textTransform='uppercase' fontSize={10} color='gray'>sunset</Typography>
-                    <Typography fontSize={14}>{formatDate(data.sunset, true, false)}</Typography>
+                    <Typography fontSize={14}>{formatDate(data.sunset, true, false, timezone)}</Typography>
                 </Box>
 
             </Box>

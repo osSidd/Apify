@@ -6,32 +6,9 @@ import DeviceThermostatSharpIcon from '@mui/icons-material/DeviceThermostatSharp
 
 import formatDate from "../../utils/formatDate";
 import formatUnit from "../../utils/weather/formatTemp";
+import getDirection from "../../utils/weather/windDirection";
 
-class CurrentWeather extends Component{
-
-    getDirection(deg){
-        console.log(deg, typeof deg)
-        if(348.75 <= deg) return 'N'
-        if(326.25 <= deg) return 'NNW'
-        if(303.75 <= deg) return 'NW'
-        if(281.25 <= deg) return 'WNW'
-        if(258.75 <= deg) return 'W'
-        if(236.25 <= deg) return 'WSW'
-        if(213.75 <= deg) return 'SW'
-        if(191.25 <= deg) return 'SSW'
-        if(168.75 <= deg) return 'S'
-        if(146.25 <= deg) return 'SSE'
-        if(123.75 <= deg) return 'SE'
-        if(101.25 <= deg) return 'ESE'
-        if(78.75 <= deg) return 'E'
-        if(56.25 <= deg) return 'ENE'
-        if(33.75 <= deg) return 'NE'
-        if(11.25 <= deg) return 'NNE'
-        else return 'N'
-    }
-
-    
-   
+class CurrentWeather extends Component{    
     render(){
         const {current: d, location, timezone, unit} = this.props
         const prop = {fontSize: 14, color:'#232323'}
@@ -99,7 +76,7 @@ class CurrentWeather extends Component{
                     </Typography>
                 </Box>
                 
-                <Grid container rowGap={{xs:0.75, md:0.25}} sx={{borderLeft:'1px solid crimson', pl:3, width:{xs:'100%', lg:'90%'}}}>
+                <Grid container rowGap={{xs:0.75, md:0.25}} sx={{borderLeft:'1px solid crimson', pl:3, width:{xs:'85%', lg:'90%'}}}>
                     <Grid xs={6} item display="flex" alignItems="center">
                         <NavigationIcon
                             sx={{
@@ -110,7 +87,7 @@ class CurrentWeather extends Component{
                             }}
                         />
                         <Typography sx={prop}>
-                            {formatUnit(d.wind_speed, unit, 'SPEED')} {unit==='M'?'m/s':'mph'} {this.getDirection(d.wind_deg)}
+                            {formatUnit(d.wind_speed, unit, 'SPEED')} {unit==='M'?'m/s':'mph'} {getDirection(d.wind_deg)}
                         </Typography>
                     </Grid>
                     <Grid item xs={6} display="flex" alignItems="center">

@@ -3,7 +3,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import formatDate from "../../../utils/formatDate";
 import formatUnit from "../../../utils/weather/formatTemp";
 
-export default function Table({data, unit, showDetails}){
+export default function Table({data, unit, showDetails, timezone}){
 
     const textColor = {
         color: '#444'
@@ -27,7 +27,7 @@ export default function Table({data, unit, showDetails}){
                                             fontSize={{xs:10, lg:14}}
                                             sx={textColor}
                                         >
-                                            {formatDate(d.dt)}
+                                            {formatDate(d.dt, false, true, timezone)}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={2} sx={{my:'-5px'}}>
