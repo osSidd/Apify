@@ -133,7 +133,7 @@ export default function Legend({minutely, timezone}){
         <Box position='absolute' bottom={10} left={10} bgcolor='white' width={{xs:'95%', lg:'75%'}} boxShadow={5} borderRadius={1} zIndex={10} sx={{cursor:'pointer'}}>
             <Typography ml={1} mt={1} fontSize={14} fontWeight={500}>{getPopTime(minutely)}</Typography>
             <Box display='flex' justifyContent='space-between' alignItems='flex-end'>
-                <Box width={{xs:'80%', sm:'85%'}}>
+                <Box width={{xs:'80%', sm:'85%', md:'87%'}}>
                     <svg id="legend-svg" ref={legendRef}></svg>
                 </Box>
                 <Box pr={1} pb={1}>
