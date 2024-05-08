@@ -22,7 +22,6 @@ class Daily extends Component{
     }
     
     showDetails(d){
-        console.log(d)
         this.setState({
             dayWeather: d,
             rowToggled: true

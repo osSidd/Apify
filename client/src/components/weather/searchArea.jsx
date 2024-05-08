@@ -44,7 +44,6 @@ class SearchArea extends Component{
     }
 
     handleChange(e){
-        console.log(e.target.value)
         this.setState({city: e.target.value})
     }
 

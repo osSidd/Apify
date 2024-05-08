@@ -5,7 +5,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import tt from '@tomtom-international/web-sdk-maps'
-import {services} from '@tomtom-international/web-sdk-services'
+// import {services} from '@tomtom-international/web-sdk-services'
 import Legend from "./legend";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -31,12 +31,10 @@ class HeatMap extends Component{
     }
 
     componentDidMount(){
-        const ele = this.state.displayWeatherMap ? this.weatherRef.current : this.mapRef.current
-        this.setMap(ele)
+        this.setMap(this.mapRef.current)
     }
 
     setMap(container){
-        
         this.map = tt.map({
             key: this.apiKey,
             container,

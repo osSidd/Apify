@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as d3 from 'd3'
 import formatDate from "../../../utils/formatDate";
 import './legend.css'
@@ -7,11 +7,10 @@ import './legend.css'
 export default function Legend({minutely, timezone}){
     
     const legendRef = useRef()
-    const [screenWidth, setScreenWidth] = useState(screen.width)
 
     useEffect(() => {
         makeChart()
-    }, [minutely, screenWidth, timezone])
+    }, [minutely, timezone])
 
     function getLegend(){
         let legendColors = []
@@ -38,10 +37,9 @@ export default function Legend({minutely, timezone}){
         }
         return legendColors
     }
-    console.log(minutely)
+
     function getPopTime(data){
         const now = data[0] //the first data point in minutely
-        const pop = data.filter(d => d.precipitation) //all data points with non zero precipitation 
         const end = data.find((d,i) => !d.precipitation && i) //First data point other than initial where precipitation is zero
         const start = data.find((d,i) => d.precipitation && i) //First data point where precipitation is non zero
 
@@ -73,17 +71,16 @@ export default function Legend({minutely, timezone}){
         if(prep >= 0.1) return {mm:0.1, col:'#99f7ab'}
         return {mm:0, col:'#2e2532'}
     }
-
+    
     function makeChart(){
         const height = 50
-        const width = screenWidth >= 1024 ? 425 : (screenWidth > 600 ? 325 : (screenWidth > 350 ? 270 : 225))
+        const width = 450
         const paddingBottom = 10
         const rightPadding = 25
-        const leftPadding = screenWidth > 1024 ? 20 : 15
-        
+        const leftPadding = 20
+
         const svg = d3.select(legendRef.current)
-                        .attr('height', height)
-                        .attr('width', width)
+                        .attr('viewBox', `0 0 ${width} ${height}`)
         
         svg.selectAll('*').remove()
 
@@ -136,7 +133,7 @@ export default function Legend({minutely, timezone}){
         <Box position='absolute' bottom={10} left={10} bgcolor='white' width={{xs:'95%', lg:'75%'}} boxShadow={5} borderRadius={1} zIndex={10} sx={{cursor:'pointer'}}>
             <Typography ml={1} mt={1} fontSize={14} fontWeight={500}>{getPopTime(minutely)}</Typography>
             <Box display='flex' justifyContent='space-between' alignItems='flex-end'>
-                <Box width='75%'>
+                <Box width={{xs:'80%', sm:'85%'}}>
                     <svg id="legend-svg" ref={legendRef}></svg>
                 </Box>
                 <Box pr={1} pb={1}>
