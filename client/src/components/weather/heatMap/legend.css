@@ -1,5 +1,6 @@
 #legend-svg tspan{
     font-size: 10px;
+    fill: #232323;
 }
 
 @media(max-width:768px){

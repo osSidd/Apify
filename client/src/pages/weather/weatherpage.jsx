@@ -146,7 +146,7 @@ class WeatherPage extends Component{
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={7} lg={8}>
-                                            <HeatMap minutely={this.state.minutely} lat={this.state.lat} lon={this.state.lon} city={this.state.city}/>
+                                            <HeatMap minutely={this.state.minutely} lat={this.state.lat} lon={this.state.lon} timezone={this.state.timezone} city={this.state.city}/>
                                         </Grid>
                                         <Grid item xs={12} sm={7}>
                                             <Hourly 

@@ -123,7 +123,7 @@ class HeatMap extends Component{
                 )   
             }
             <div onClick={this.showWeatherMap} style={{width:'100%', height:'100%', zIndex:1}} ref={this.mapRef} id="heatmap"></div>
-            <Legend minutely={this.props.minutely}/>
+            {this.props.minutely ? <Legend minutely={this.props.minutely} timezone={this.props.timezone}/> : null}
         </div>
        )
     }
