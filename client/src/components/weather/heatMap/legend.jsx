@@ -76,8 +76,8 @@ export default function Legend({minutely, timezone}){
         const height = 50
         const width = 450
         const paddingBottom = 10
-        const rightPadding = 25
-        const leftPadding = 20
+        const rightPadding = 30
+        const leftPadding = 25
 
         const svg = d3.select(legendRef.current)
                         .attr('viewBox', `0 0 ${width} ${height}`)
@@ -121,19 +121,23 @@ export default function Legend({minutely, timezone}){
                     .text((d,i) => {if(i%15===0 || i === minutely.length - 1) return formatDate(d.dt, true, false, timezone)})
                     .attr('x', (d,i) => xScaleMajor(d) - 2*xScaleMajor.bandwidth())
                     .attr('dy', 0)
+                    .attr('fill', '#232323')
+                    .style('font-size', 12)
                     .append('tspan')
                     .text((d,i) => {if(i%15===0 || i === minutely.length - 1){if(i === 0) return 'now'; else if(i === minutely.length - 1) return '60 min'; return `${parseInt(i/15)*15} min`}})
                     .attr('x', (d,i) => xScaleMajor(d) - xScaleMajor.bandwidth())
-                    .attr('dy', -12)
+                    .attr('dy', -16)
+                    .attr('fill', '#555')
+                    .style('font-size', 10)
 }
 
     const legendArr = getLegend() 
 
     return (
-        <Box position='absolute' bottom={10} left={10} bgcolor='white' width={{xs:'95%', lg:'75%'}} boxShadow={5} borderRadius={1} zIndex={10} sx={{cursor:'pointer'}}>
+        <Box position='absolute' bottom={10} left={10} bgcolor='white' width={{xs:'95%', lg:'75%'}} boxShadow={5} borderRadius={1} zIndex={10} sx={{cursor:'pointer', paddingBottom:'2px'}}>
             <Typography ml={1} mt={1} fontSize={14} fontWeight={500}>{getPopTime(minutely)}</Typography>
             <Box display='flex' justifyContent='space-between' alignItems='flex-end'>
-                <Box width={{xs:'80%', sm:'85%', md:'87%'}}>
+                <Box className="svg-container" width={{xs:'82%', sm:'85%', md:'87%'}}>
                     <svg id="legend-svg" ref={legendRef}></svg>
                 </Box>
                 <Box pr={1} pb={1}>

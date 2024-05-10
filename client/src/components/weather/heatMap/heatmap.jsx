@@ -7,6 +7,7 @@ import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import tt from '@tomtom-international/web-sdk-maps'
 // import {services} from '@tomtom-international/web-sdk-services'
 import Legend from "./legend";
+import legendColors from '../../../data/weather/mapLegend'
 
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -76,7 +77,7 @@ class HeatMap extends Component{
 
     componentDidUpdate(){
         const ele = this.state.displayWeatherMap ? this.weatherRef.current : this.mapRef.current
-        console.log('heatmap component updated')
+        console.log('heatmap component updated', this.props.city, this.state.city)
         this.setMap(ele)
     }
 
@@ -113,8 +114,9 @@ class HeatMap extends Component{
                         <IconButton onClick={this.hideWeatherMap} sx={{position:'fixed', zIndex:50, top:5, right:5, bgcolor:'white', '&:hover':{bgcolor:'white'}}} >
                             <CloseIcon/>
                         </IconButton>
-                        <div id='weather-map' ref={this.weatherRef}>
+                        <div style={{position:'relative'}} id='weather-map' ref={this.weatherRef}>
                             <Layers fn={this.selectLayer} layer={this.state.layer}/>
+                            <InteractiveMapLegend layer={this.state.layer}/>
                         </div>
                     </div>
                     , document.getElementById('weather-map')
@@ -128,6 +130,32 @@ class HeatMap extends Component{
 }
 
 export default HeatMap
+
+function InteractiveMapLegend({layer}){
+    let gradientStr = ''
+
+    const legendColor = legendColors[layer] 
+
+    legendColor.values.forEach((v,i,arr) => {
+        gradientStr += `${v.col} ${i !== arr.length -1 ? ',' : ''}`
+    })
+
+    return (
+        <Box display='flex' alignItems='center' justifyContent='space-between' bottom={10} right={{xs:0, md:10}} zIndex={50} py={0.5} px={1} boxShadow={5} borderRadius={1} bgcolor='white' width={325} position='absolute'>
+            <Typography fontSize={10}>{legendColor.layer}</Typography>
+            <Box width='75%'>
+                <Box display='flex' alignItems='center' justifyContent='space-between'>
+                    {
+                        legendColor.values.map(v => (
+                            <Typography fontSize={10} key={v.val}>{v.val}</Typography>
+                        ))
+                    }
+                </Box>
+                <Box sx={{backgroundImage:`linear-gradient(90deg, ${gradientStr})`}} width='100%' height={5}></Box>
+            </Box>
+        </Box>
+    )
+}
 
 function Layers({fn, layer}){
     const style = {fontSize: 14, px:2, py:1, cursor:'pointer', '&:hover':{bgcolor:'#f2f2f2'}}

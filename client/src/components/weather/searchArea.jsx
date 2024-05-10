@@ -1,4 +1,4 @@
-import { Component } from "react"
+import { Component, createRef } from "react"
 
 import NearMeIcon from '@mui/icons-material/NearMeOutlined';
 
@@ -10,6 +10,7 @@ class SearchArea extends Component{
 
     constructor(){
         super()
+        this.langRef = createRef()
         this.state = {
             city: '',
             cities: [],

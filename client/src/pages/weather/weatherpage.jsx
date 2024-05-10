@@ -52,7 +52,7 @@ class WeatherPage extends Component{
     
     async getCoord(city){
         try{
-            let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&lang=en`,{mode:'cors'})
 
             if(!res.ok) return
 
@@ -97,7 +97,7 @@ class WeatherPage extends Component{
 
     async getForecast(lat, lon){
         try{
-            let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`,{mode:'cors'})
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&lang=en`,{mode:'cors'})
             
             if(!res.ok) return 
         
