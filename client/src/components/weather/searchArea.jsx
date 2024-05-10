@@ -1,5 +1,5 @@
 import { Component, createRef } from "react"
-
+import './search.css'
 import NearMeIcon from '@mui/icons-material/NearMeOutlined';
 
 import Container from "@mui/material/Container"
@@ -117,6 +117,7 @@ class SearchArea extends Component{
                                     value={this.state.city}
                                     onChange={e => this.handleChange(e)} 
                                     placeholder="Search City"
+                                    id="search-input"
                                 />
                                 <Button 
                                     disableElevation 

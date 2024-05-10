@@ -1,0 +1,7 @@
+#search-input{
+    padding: 0 0 0 1rem;
+}
+
+#search-input:hover{
+    background-color: white;
+}
