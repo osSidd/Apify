@@ -1,7 +1,11 @@
-import { Component, createRef } from "react";
+import { Component, createRef, useRef } from "react";
+
+import './map.css'
 
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import tt from '@tomtom-international/web-sdk-maps'
+import formatUnit from "../../../utils/weather/formatTemp";
+import getDirection from "../../../utils/weather/windDirection";
 
 class Map extends Component{
 
@@ -10,11 +14,14 @@ class Map extends Component{
         
         this.map = null
         this.marker = null
+        this.popup = null
         this.apiKey = import.meta.env.VITE_TOMTOM_KEY
 
         this.mapRef = createRef()
     
-        this.setMap = this.setMap.bind(this)    
+        this.setMap = this.setMap.bind(this)   
+        this.handleMapClick = this.handleMapClick.bind(this) 
+        this.setPopUp = this.setPopUp.bind(this)
     }
 
     componentDidMount(){
@@ -23,10 +30,11 @@ class Map extends Component{
 
     componentWillUnmount(){
         this.map?.remove()
+        this.popup?.remove()
     }
 
     componentDidUpdate(){
-        this.map.setCenter(this.props.center)
+        this.map.flyTo({center: this.props.center})
 
         if(this.props.id === 'interactive-map'){
             const style = this.map.getStyle()
@@ -59,6 +67,10 @@ class Map extends Component{
             language:'en-US',
             zoom: 6,
         })
+        if(this.props.id === 'interactive-map'){
+            this.map.on('click', this.handleMapClick)
+            this.setPopUp(this.props.center)
+        }
         this.marker = new tt.Marker().setLngLat(this.props.center).addTo(this.map)
         this.map.on('load', () => {
             this.map.addSource('owm_source', {
@@ -78,6 +90,52 @@ class Map extends Component{
                 layout: {visibility: 'visible'}
             })
         })
+    }
+
+    handleMapClick(e){
+        const {lat, lng} = e.lngLat
+        this.marker.setLngLat([lng, lat])
+        this.setPopUp([lng, lat])
+    }
+
+    async setPopUp(center){
+
+        let htmlStr = `<div>Openweathermap.org</div>`
+
+        try{
+            const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${center[1]}&lon=${center[0]}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+
+            if(!res.ok) htmlStr = 'response error'
+            else{
+                const data = await res.json()
+                htmlStr = this.getHtml(data)
+
+                this.popup = new tt.Popup({maxWidth:'none'})
+                        .setLngLat(center)
+                        .setHTML(htmlStr)
+                        .addTo(this.map)
+            }
+        }catch(err){
+            htmlStr = 'failed to fetch'
+        }
+        
+    }
+
+    getHtml(d){
+        return `
+            <div class="popup-container">
+                <h2>${d.name}, ${d.sys.country}</h2>
+                <div class='popup-img-temp'>
+                    <img src='https://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png' alt='weather-icon'/>
+                    <p>${formatUnit(d.main.temp, 'M', 'TEMP')} &deg;C</p>
+                </div>
+                <div class='other-info'>
+                    <p>${d.weather[0].description}</p>
+                    <p>Humidity: ${d.main.humidity}%</p>
+                    <p>Wind: ${d.wind.speed}m/s ${getDirection(d.wind.deg)}</p>
+                </div>
+            </div>
+        `
     }
 
     render(){

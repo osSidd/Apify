@@ -63,12 +63,12 @@ export default function Legend({minutely, timezone}){
     }
 
     function getColor(prep){
-        if(prep >= 140) return {mm:140, col:'#11270b'}
-        if(prep >= 10) return {mm:10, col:'#3c5a14'}
-        if(prep >= 1) return {mm:1, col:'#598b2c'}
-        if(prep >= 0.5) return {mm:0.5, col:'#669d31'}
-        if(prep >= 0.2) return {mm:0.2, col:'#71b340'}
-        if(prep >= 0.1) return {mm:0.1, col:'#99f7ab'}
+        if(prep >= 140) return {mm:140, col:'rgba(20, 20, 255, 1)'}
+        if(prep >= 10) return {mm:10, col:'rgba(80,80, 225, 0.9)'}
+        if(prep >= 1) return {mm:1, col:'rgba(110, 110, 205, 0.8)'}
+        if(prep >= 0.5) return {mm:0.5, col:'rgba(120, 120, 190, 0.7)'}
+        if(prep >= 0.2) return {mm:0.2, col:'rgba(120, 120, 190, 0.6)'}
+        if(prep >= 0.1) return {mm:0.1, col:'rgba(120, 120, 190, 0.5)'}
         return {mm:0, col:'#2e2532'}
     }
     
