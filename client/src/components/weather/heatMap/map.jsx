@@ -35,6 +35,7 @@ class Map extends Component{
 
     componentDidUpdate(){
         this.map.flyTo({center: this.props.center})
+        this.map.setZoom(this.props.zoom)
 
         if(this.props.id === 'interactive-map'){
             const style = this.map.getStyle()

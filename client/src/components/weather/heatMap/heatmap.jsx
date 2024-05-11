@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom'
 import { Component, createRef } from "react";
 import './heatmap.css'
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 
 // import {services} from '@tomtom-international/web-sdk-services'
 import Legend from "./legend";
@@ -19,12 +19,14 @@ class HeatMap extends Component{
             layer: 'precipitation_new',
             displayWeatherMap: false,
             city: this.props.city,
-            center: [this.props.lon, this.props.lat]
+            center: [this.props.lon, this.props.lat],
+            zoom: 6
         }
         
         this.showWeatherMap = this.showWeatherMap.bind(this)
         this.hideWeatherMap = this.hideWeatherMap.bind(this)
         this.selectLayer = this.selectLayer.bind(this)
+        this.toggleZoom = this.toggleZoom.bind(this)
     }  
     
     static getDerivedStateFromProps(props, state){
@@ -58,6 +60,17 @@ class HeatMap extends Component{
         })
     }
 
+    toggleZoom(id){
+        switch(id){
+            case 'inc':
+                this.setState(prev => ({zoom: prev.zoom <= 12 ? prev.zoom + 1 : 12}))
+                return
+            case 'dec':
+                this.setState(prev => ({zoom: prev.zoom >= 0 ? prev.zoom - 1 : 0}))
+                return
+        }
+    }
+
     render(){
        return(
         <div style={{width:'100%', height:'100%', zIndex:1, position:'relative'}}>
@@ -67,6 +80,7 @@ class HeatMap extends Component{
                 center={this.state.center}
                 city={this.state.city}
                 layer='precipitation_new'
+                zoom={6}
             />
             {this.props.minutely ? <Legend minutely={this.props.minutely} timezone={this.props.timezone}/> : null}
             {
@@ -82,9 +96,11 @@ class HeatMap extends Component{
                                 center={[this.props.lon, this.props.lat]}
                                 city={this.props.city}
                                 layer={this.state.layer}
+                                zoom={this.state.zoom}
                             >
                                 <Layers fn={this.selectLayer} layer={this.state.layer}/>
                                 <InteractiveMapLegend layer={this.state.layer}/>
+                                <ZoomBtn handleClick={this.toggleZoom} zoom={this.state.zoom}/>
                             </Map>
                         </Box>
                     </div>
@@ -133,6 +149,18 @@ function Layers({fn, layer}){
             <Typography sx={{...style, bgcolor: layer === 'temp_new' ? '#f2f2f2' : 'white'}} onClick={() => {fn('temp_new')}}>Temperature</Typography>
             <Typography sx={{...style, bgcolor: layer === 'wind_new' ? '#f2f2f2' : 'white'}} onClick={() => {fn('wind_new')}}>Wind speed</Typography>
             <Typography sx={{...style, bgcolor: layer === 'clouds_new' ? '#f2f2f2' : 'white'}} onClick={() => {fn('clouds_new')}}>Clouds</Typography>
+        </Box>
+    )
+}
+
+function ZoomBtn({handleClick, zoom}){
+
+    const style = {fontSize: 32, display:'block', p:1.5, textAlign: 'center', verticalAlign:'middle', bgcolor:'white', '&:hover':{bgcolor:'white'}, width:15, cursor:'pointer', my:0.25, boxShadow:3}
+
+    return (
+        <Box position='fixed' top='5%' left='5%' zIndex={30}>
+            <Box sx={{...style, color: zoom === 12 ? '#999' : '#232323'}} onClick={() => {handleClick('inc')}}>&#43;</Box>
+            <Box sx={{...style, color: zoom === 0 ? '#999': '#232323'}} onClick={() => {handleClick('dec')}}>&#8722;</Box>
         </Box>
     )
 }
