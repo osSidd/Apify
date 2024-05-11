@@ -28,6 +28,21 @@ class Map extends Component{
     componentDidUpdate(){
         this.map.setCenter(this.props.center)
 
+        if(this.props.id === 'interactive-map'){
+            const style = this.map.getStyle()
+    
+            this.map.setStyle({
+                ...style, 
+                sources: {
+                    ...style.sources, 
+                    'owm_source': {
+                        ...style.sources['owm_source'], 
+                        tiles:[`https://tile.openweathermap.org/map/${this.props.layer}/{z}/{x}/{y}.png?appid=${import.meta.env.VITE_WEATHER_API_KEY}`]
+                    }
+                }
+            })
+        }
+
         if(!this.marker) 
             this.marker = new tt.Marker().setLngLat(this.props.center).addTo(this.map)
         else 
@@ -49,7 +64,7 @@ class Map extends Component{
             this.map.addSource('owm_source', {
                 type: 'raster',
                 tiles: [
-                    `https://tile.openweathermap.org/map/${this.props.layer}/{z}/{x}/{y}.png?appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+                    `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${import.meta.env.VITE_WEATHER_API_KEY}`
                 ],
                 tileSize:256,
                 minzoom: 0,
