@@ -3,7 +3,12 @@ import { Component, createRef, useRef } from "react";
 import './map.css'
 
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
+import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css'
+
 import tt from '@tomtom-international/web-sdk-maps'
+import SearchBox from '@tomtom-international/web-sdk-plugin-searchbox'
+import {services} from '@tomtom-international/web-sdk-services'
+
 import formatUnit from "../../../utils/weather/formatTemp";
 import getDirection from "../../../utils/weather/windDirection";
 
@@ -12,9 +17,25 @@ class Map extends Component{
     constructor(props){
         super(props)
         
+        
+        this.searchOptions = {
+            idleTimePress: 100,
+            minNumberOfCharacters: 0,
+            searchOptions: {
+                key: import.meta.env.VITE_TOMTOM_KEY,
+                language: 'en-GB'
+            },
+            autocompleteOptions: {
+                key: import.meta.env.VITE_TOMTOM_KEY,
+                language: 'en-GB'
+            },
+            noResultsMessage: 'No results found.'
+        }
         this.map = null
         this.marker = null
         this.popup = null
+        this.searchControl = null
+        this.zoomControl = null
         this.apiKey = import.meta.env.VITE_TOMTOM_KEY
 
         this.mapRef = createRef()
@@ -31,14 +52,12 @@ class Map extends Component{
     componentWillUnmount(){
         this.map?.remove()
         this.popup?.remove()
+        this.map?.removeControl(this.searchControl)
+        this.map?.removeControl(this.zoomControl)
     }
 
     componentDidUpdate(){
-        try{
-            this.map.flyTo({center: this.props.center, zoom: this.props.zoom})
-        }catch(err){
-            console.log(err, 'error')
-        }
+        this.map.flyTo({center: this.props.center})
 
         if(this.props.id === 'interactive-map'){
             const style = this.map.getStyle()
@@ -72,8 +91,25 @@ class Map extends Component{
             zoom: 6,
         })
         if(this.props.id === 'interactive-map'){
+            
             this.map.on('click', this.handleMapClick)
+            
             this.setPopUp(this.props.center)
+            
+            this.zoomControl = new tt.NavigationControl({
+                showZoom:true,
+                showCompass: true
+            })
+            this.map.addControl(this.zoomControl, 'top-left')
+
+            this.searchControl = new SearchBox(services, this.searchOptions)
+            this.map.addControl(this.searchControl, 'top-left')
+            this.searchControl.on('tomtom.searchbox.resultselected', e => {
+                this.popup.remove()
+                let obj = e.data.result.position; 
+                this.props.setLngLat(obj)
+                this.setPopUp([obj.lng, obj.lat])
+            })
         }
         this.marker = new tt.Marker().setLngLat(this.props.center).addTo(this.map)
         this.map.on('load', () => {
@@ -126,7 +162,6 @@ class Map extends Component{
     }
 
     getHtml(d){
-        console.log(d)
         const title = d.name ? `${d.name}, ${d.sys.country}` : `Lat:${parseInt(d.coord.lat)}, Lon:${parseInt(d.coord.lon)}`  
         return `
             <div class="popup-container">
