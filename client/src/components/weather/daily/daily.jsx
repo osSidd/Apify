@@ -37,7 +37,6 @@ class Daily extends Component{
     
     render(){
         const {data, unit} = this.props
-        console.log('daily component')
         return (
             <Box>
                 <Typography

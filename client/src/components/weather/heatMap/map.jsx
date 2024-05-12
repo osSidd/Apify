@@ -1,4 +1,4 @@
-import { Component, createRef, useRef } from "react";
+import { Component, createRef } from "react";
 
 import './map.css'
 
@@ -16,8 +16,6 @@ class Map extends Component{
 
     constructor(props){
         super(props)
-        
-        
         this.searchOptions = {
             idleTimePress: 100,
             minNumberOfCharacters: 0,
@@ -47,15 +45,17 @@ class Map extends Component{
 
     componentDidMount(){
         this.setMap(this.mapRef.current)
-    }
-
+    } 
+ 
     componentWillUnmount(){
+        if(this.searchControl)
+            this.map?.removeControl(this.searchControl)
+        if(this.zoomControl)
+            this.map?.removeControl(this.zoomControl)
         this.map?.remove()
-        this.popup?.remove()
-        this.map?.removeControl(this.searchControl)
-        this.map?.removeControl(this.zoomControl)
-    }
-
+        this.popup?.remove()       
+    }     
+      
     componentDidUpdate(){
         this.map.flyTo({center: this.props.center})
 
@@ -77,9 +77,7 @@ class Map extends Component{
         if(!this.marker) 
             this.marker = new tt.Marker().setLngLat(this.props.center).addTo(this.map)
         else 
-            this.marker.setLngLat(this.props.center)
-        
-        console.log('heatmap component updated')
+            this.marker.setLngLat(this.props.center)        
     }
 
     setMap(container){
@@ -93,15 +91,9 @@ class Map extends Component{
         if(this.props.id === 'interactive-map'){
             
             this.map.on('click', this.handleMapClick)
-            
+             
             this.setPopUp(this.props.center)
             
-            this.zoomControl = new tt.NavigationControl({
-                showZoom:true,
-                showCompass: true
-            })
-            this.map.addControl(this.zoomControl, 'top-left')
-
             this.searchControl = new SearchBox(services, this.searchOptions)
             this.map.addControl(this.searchControl, 'top-left')
             this.searchControl.on('tomtom.searchbox.resultselected', e => {
@@ -110,6 +102,12 @@ class Map extends Component{
                 this.props.setLngLat(obj)
                 this.setPopUp([obj.lng, obj.lat])
             })
+            
+            this.zoomControl = new tt.NavigationControl({
+                showZoom:true,
+                showCompass: true
+            })
+            this.map.addControl(this.zoomControl, 'top-left')
         }
         this.marker = new tt.Marker().setLngLat(this.props.center).addTo(this.map)
         this.map.on('load', () => {
@@ -157,8 +155,7 @@ class Map extends Component{
             }
         }catch(err){
             htmlStr = 'failed to fetch'
-        }
-        
+        } 
     }
 
     getHtml(d){

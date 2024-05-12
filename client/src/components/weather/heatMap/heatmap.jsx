@@ -1,9 +1,8 @@
 import { createPortal } from 'react-dom'
-import { Component, createRef } from "react";
+import { Component } from "react";
 import './heatmap.css'
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 
-// import {services} from '@tomtom-international/web-sdk-services'
 import Legend from "./legend";
 import legendColors from '../../../data/weather/mapLegend'
 
@@ -128,12 +127,12 @@ function InteractiveMapLegend({layer}){
             </Box>
         </Box>
     )
-}
+} 
 
 function Layers({fn, layer}){
     const style = {fontSize: {xs:12, md:14}, px:2, py:{xs:0.5, md:1}, cursor:'pointer', '&:hover':{bgcolor:'#f2f2f2'}}
     return (
-        <Box position='fixed' bgcolor='white'py={{xs:1, md:2}} boxShadow={5} borderRadius={2} zIndex={30} top={{xs:50, md:75}} right={10}>
+        <Box position='fixed' bgcolor='white'py={{xs:1, md:2}} boxShadow={5} borderRadius={2} zIndex={30} top={75} right={10}>
             <Typography sx={{...style, bgcolor: layer === 'precipitation_new' ? '#f2f2f2' : 'white'}} onClick={() => {fn('precipitation_new')}}>Global Precipitation</Typography>
             <Typography sx={{...style, bgcolor: layer === 'pressure_new' ? '#f2f2f2' : 'white'}} onClick={() => {fn('pressure_new')}}>Pressure</Typography>
             <Typography sx={{...style, bgcolor: layer === 'temp_new' ? '#f2f2f2' : 'white'}} onClick={() => {fn('temp_new')}}>Temperature</Typography>

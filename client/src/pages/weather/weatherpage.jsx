@@ -43,7 +43,6 @@ class WeatherPage extends Component{
 
     componentDidUpdate(){
         // console.log(this.state)
-        console.log('main weather page updated')
     }
 
     setCityError(error, city){
