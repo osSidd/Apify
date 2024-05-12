@@ -34,12 +34,15 @@ class Map extends Component{
     }
 
     componentDidUpdate(){
-        this.map.flyTo({center: this.props.center})
-        this.map.setZoom(this.props.zoom)
+        try{
+            this.map.flyTo({center: this.props.center, zoom: this.props.zoom})
+        }catch(err){
+            console.log(err, 'error')
+        }
 
         if(this.props.id === 'interactive-map'){
             const style = this.map.getStyle()
-    
+            
             this.map.setStyle({
                 ...style, 
                 sources: {
@@ -123,9 +126,11 @@ class Map extends Component{
     }
 
     getHtml(d){
+        console.log(d)
+        const title = d.name ? `${d.name}, ${d.sys.country}` : `Lat:${parseInt(d.coord.lat)}, Lon:${parseInt(d.coord.lon)}`  
         return `
             <div class="popup-container">
-                <h2>${d.name}, ${d.sys.country}</h2>
+                <h2>${title}</h2>
                 <div class='popup-img-temp'>
                     <img src='https://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png' alt='weather-icon'/>
                     <p>${formatUnit(d.main.temp, 'M', 'TEMP')} &deg;C</p>

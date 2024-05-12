@@ -63,10 +63,10 @@ class HeatMap extends Component{
     toggleZoom(id){
         switch(id){
             case 'inc':
-                this.setState(prev => ({zoom: prev.zoom <= 12 ? prev.zoom + 1 : 12}))
+                this.setState(prev => ({...prev, zoom: prev.zoom < 12 ? prev.zoom + 1 : 12}))
                 return
             case 'dec':
-                this.setState(prev => ({zoom: prev.zoom >= 0 ? prev.zoom - 1 : 0}))
+                this.setState(prev => ({...prev, zoom: prev.zoom > 0 ? prev.zoom - 1 : 0}))
                 return
         }
     }
@@ -93,8 +93,8 @@ class HeatMap extends Component{
                             <Map 
                                 id='interactive-map' 
                                 handleClick={undefined}
-                                center={[this.props.lon, this.props.lat]}
-                                city={this.props.city}
+                                center={this.state.center}
+                                city={this.state.city}
                                 layer={this.state.layer}
                                 zoom={this.state.zoom}
                             >
