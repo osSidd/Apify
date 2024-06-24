@@ -5,6 +5,7 @@ import './App.css'
 
 import Footer from "./components/footer"
 import WeatherPage from "./pages/weather/weatherpage"
+import Aqi from "./components/weather/aqi/aqi"
 
 class App extends Component{
   render(){
@@ -12,6 +13,7 @@ class App extends Component{
       <ThemeProvider theme={theme}>
         <WeatherPage/>
         <Footer/> 
+        <Aqi/>
       </ThemeProvider>  
     )
   }
