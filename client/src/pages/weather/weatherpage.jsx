@@ -11,6 +11,7 @@ import Daily from '../../components/weather/daily/daily'
 // import banner from '../../assets/weather/banner.jpg'
 import { Container, Grid, Box, CircularProgress, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Aqi from "../../components/weather/aqi/aqi";
 
 class WeatherPage extends Component{
 
@@ -27,7 +28,8 @@ class WeatherPage extends Component{
             minutely: [],
             unit: 'M',
             lat:21,
-            lon:23
+            lon:23,
+            aqi: 2,
         }
 
         this.getCoord = this.getCoord.bind(this)
@@ -35,6 +37,7 @@ class WeatherPage extends Component{
         this.searchCity = this.searchCity.bind(this)
         this.changeUnit = this.changeUnit.bind(this)
         this.setCityError = this.setCityError.bind(this)
+        this.setAqi = this.setAqi.bind(this)
     }
     
     componentDidMount(){
@@ -111,6 +114,12 @@ class WeatherPage extends Component{
         this.setState({unit})
     }
 
+    setAqi(aqi){
+        this.setState({
+            aqi,
+        })
+    }
+
     render(){
         return(
             <div>
@@ -142,6 +151,7 @@ class WeatherPage extends Component{
                                                 location={{country: this.state.country, city: this.state.city}}
                                                 current = {this.state.current}
                                                 unit={this.state.unit} 
+                                                aqi={this.state.aqi}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={7} lg={8}>
@@ -162,6 +172,7 @@ class WeatherPage extends Component{
                                             />
                                         </Grid>
                                     </Grid>
+                                    <Aqi setAqi={this.setAqi} lat={this.state.lat} lon={this.state.lon}/>
                                 </Box>
                             </Container>
                             : <Box minHeight='50vh' display='flex' justifyContent='center' alignItems='center'>

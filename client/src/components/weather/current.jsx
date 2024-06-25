@@ -1,5 +1,5 @@
 import { Component } from "react"
-import {Box, Grid, Typography} from '@mui/material'
+import {Box, Chip, Grid, Typography} from '@mui/material'
 
 import NavigationIcon from '@mui/icons-material/Navigation';
 import DeviceThermostatSharpIcon from '@mui/icons-material/DeviceThermostatSharp';
@@ -9,9 +9,20 @@ import formatUnit from "../../utils/weather/formatTemp";
 import getDirection from "../../utils/weather/windDirection";
 
 class CurrentWeather extends Component{    
+
+    getAqColor(aqi){
+        if(aqi > 5) return {col: 'maroon', label: 'hazardous'}
+        if(aqi === 5) return {col: 'purple', label: 'very poor'}
+        if(aqi >= 4) return {col: 'red', label: 'poor'}
+        if(aqi >=3) return {col: 'orange', label: 'moderate'}
+        if(aqi >= 2) return {col: 'yellow', label: 'fair'}
+        if(aqi >= 1) return {col: 'green', label: 'good'}
+    }
+
     render(){
-        const {current: d, location, timezone, unit} = this.props
+        const {current: d, location, timezone, unit, aqi} = this.props
         const prop = {fontSize: 14, color:'#232323'}
+        const {col, label} = this.getAqColor(aqi)
        
         return(   
             <Box>
@@ -122,6 +133,14 @@ class CurrentWeather extends Component{
                             Visibility: {formatUnit(d.visibility, unit, 'DISTANCE')/1000} {unit==='M'?'km':'miles'}
                         </Typography>
                     </Grid>
+                    <Grid item xs={6}>
+                        <Typography sx={prop}>
+                            Air quality index: {aqi}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Chip label={label} sx={{fontSize: 10, letterSpacing:'0.75px', paddingInline: 1, textTransform: 'uppercase', bgcolor: col, color: col === 'yellow'? '#232323' : 'white'}} size='small'/> 
+                    </Grid>
                 </Grid>
             </Box>
         )
@@ -129,3 +148,5 @@ class CurrentWeather extends Component{
 }
 
 export default CurrentWeather
+
+//green yellow orange red purple maroon brown
